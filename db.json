@@ -1,0 +1,52 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "",
+      "password": "12345",
+      "email": ""
+    },
+    {
+      "name": "",
+      "password": "mnkvbkdb ",
+      "email": "jfnvkjdkvjb",
+      "id": 2
+    },
+    {
+      "name": "",
+      "password": "jfdnkjfdklkldf",
+      "email": "fdjjfdjfd",
+      "id": 3
+    },
+    {
+      "name": "",
+      "password": "vlkjvnadkjnv",
+      "email": "jdbvudbvb",
+      "id": 4
+    },
+    {
+      "name": "",
+      "password": "vlkjnkjn",
+      "email": "erneoinv;ovnv",
+      "id": 5
+    }
+  ],
+  "recipes": [
+    {
+      "userId": 1,
+      "id": 1,
+      "imageUrl": "",
+      "title": "",
+      "calories": "",
+      "instructions": ""
+    },
+    {
+      "userId": 1,
+      "title": "Tacos",
+      "imageUrl": "kjngoehggnrg",
+      "calories": "500",
+      "instructions": "cook meat well",
+      "id": 2
+    }
+  ]
+}
