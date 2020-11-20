@@ -3,11 +3,12 @@ import { Button, Menu, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 
-function NavBar() {
+  function NavBar({user, setUser}) {
   const [activeItem, setactiveItem] = useState("");
   const handleItemClick = (e, { name }) => {
     setactiveItem(name);
   };
+
   return (
     <nav>
       <Menu inverted>
@@ -41,7 +42,10 @@ function NavBar() {
           position="right"
           onClick={handleItemClick}
         >
-          <Link to="/login">Log In</Link>
+         {user !== '' ?  <Link to="/" onClick={()=>{
+           setUser('')
+           localStorage.clear()}}>Log Out</Link> :  <Link to="/login">Log In</Link>}
+         
         </Menu.Item>
       </Menu>
     </nav>

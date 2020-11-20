@@ -6,11 +6,13 @@ import LogIn from "./LogIn";
 import Home from "./Home";
 // import RecipeList from "./RecipeList";
 import RecipeAdd from "./RecipeAdd";
+import React, {useState} from 'react'
 
 function App() {
+const [user, setUser] = useState('')
   return (
     <main>
-      <NavBar></NavBar>
+      <NavBar setUser= {setUser} user= {user}></NavBar>
       <Route path="/" exact>
         <Home></Home>
       </Route>
@@ -22,7 +24,7 @@ function App() {
       </Route> */}
 
       <Route path="/login">
-        <LogIn registration={false}></LogIn>
+        <LogIn setUser= {setUser} registration={false}></LogIn>
       </Route>
       <Route path="/registration">
         <LogIn registration={true}></LogIn>

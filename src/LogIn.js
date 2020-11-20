@@ -10,7 +10,7 @@ import {
 } from "semantic-ui-react";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
-const LoginForm = ({ registration }) => {
+const LoginForm = ({ registration, setUser }) => {
   const [userName, setuserName] = useState("");
   const [passWord, setpassWord] = useState("");
   let history = useHistory();
@@ -46,6 +46,7 @@ const LoginForm = ({ registration }) => {
       if (response.data.length > 0) {
         console.log("Successfully Logged-in")
         localStorage.setItem("userId", response.data[0].id.toString())
+        setUser(response.data[0].id.toString())
         history.push("/")
       } else {
         console.log("Failed Log-in")
