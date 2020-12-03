@@ -4,9 +4,10 @@ import "semantic-ui-css/semantic.min.css";
 import { Route } from "react-router-dom";
 import LogIn from "./LogIn";
 import Home from "./Home";
-// import RecipeList from "./RecipeList";
+import RecipeList from "./RecipeList";
 import RecipeAdd from "./RecipeAdd";
 import React, {useState} from 'react'
+import Favorites from "./Favorites"
 
 function App() {
 const [user, setUser] = useState('')
@@ -19,9 +20,12 @@ const [user, setUser] = useState('')
       <Route path="/recipe-add">
         <RecipeAdd></RecipeAdd>
       </Route>
-      {/* <Route path="/recipes">
-        <RecipeAdd></RecipeAdd>
-      </Route> */}
+      <Route path="/recipes">
+        <RecipeList></RecipeList>
+      </Route>
+      <Route path='/favorites'>
+        <Favorites></Favorites>
+      </Route>
 
       <Route path="/login">
         <LogIn setUser= {setUser} registration={false}></LogIn>
