@@ -6,7 +6,7 @@ const RECIPE_URL = "https://www.themealdb.com/api/json/v1/1/random.php";
 async function generateSeedArray() {
   try {
     let seedArray = [];
-    for (let index = 0; index < 10; index++) {
+    for (let index = 0; index < 3; index++) {
       let dataObject = {};
       const personResponse = await axios.get(RANDOM_PERSON_URL);
       console.log(personResponse.data.results[0]);
@@ -22,6 +22,7 @@ async function generateSeedArray() {
         imageUrl: recipeResponse.data.meals[0].strMealThumb,
         videoUrl: recipeResponse.data.meals[0].strYoutube,
         area: recipeResponse.data.meals[0].strArea,
+        rating: [],
       };
 
       seedArray.push(dataObject);
@@ -42,6 +43,10 @@ async function generateSeedArray() {
         calories: currentElement.recipe.calories,
         instructions: currentElement.recipe.instructions,
         userId: user.data.id,
+        //replace the word watch with embed on the url 
+        videoUrl: currentElement.recipe.videoUrl,
+        area: currentElement.recipe.area,
+        rating: currentElement.recipe.rating
       });
     }
   } catch (error) {

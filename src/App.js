@@ -20,13 +20,16 @@ const [user, setUser] = useState('')
       <Route path="/recipe-add">
         <RecipeAdd></RecipeAdd>
       </Route>
-      <Route path="/recipes">
+      <Route exact path="/recipes">
         <RecipeList></RecipeList>
+       
       </Route>
       <Route path='/favorites'>
         <Favorites></Favorites>
       </Route>
-
+      <Route path="/recipes/:id">
+          Hello
+        </Route>
       <Route path="/login">
         <LogIn setUser= {setUser} registration={false}></LogIn>
       </Route>

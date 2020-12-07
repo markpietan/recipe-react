@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios"
 import {
   Rating,
   Button,
@@ -8,9 +9,30 @@ import {
   Card,
   Icon,
 } from "semantic-ui-react";
+import RecipeAdd from "./RecipeAdd";
 
 const RecipeCard = ({info}) => {
   const [open, setOpen] = useState(false);
+  // const ratings = info.rating
+  console.log(info)
+  let some = 0
+  for (let index = 0; index < info.rating.length; index++) {
+    const element = info.rating[index];
+    some+= element 
+  }
+  async function handleRate(e, {rating}){
+    try {
+      const ratingArray = [...info.rating]
+      ratingArray.push(rating)
+      const response = await axios.patch("http://localhost:3001/recipes/"+ info.id, {
+        rating: ratingArray
+      })
+      console.log("Submitted Ratings")
+    } catch (error) {
+      throw(error)
+    }
+  }
+  const averageRating = Math.round(some/info.rating.length)
   return (
     <Card>
       <Image src={info.imageUrl} wrapped ui={false} />
@@ -39,7 +61,7 @@ const RecipeCard = ({info}) => {
                 title="video"
                 width="560"
                 height="315"
-                src="https://www.youtubinfo.com/embed/9h9No18ZyCI"
+                src={info.videoUrl}
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
@@ -50,7 +72,9 @@ const RecipeCard = ({info}) => {
       </Card.Content>
       <Card.Content extra>
         <div>
-          <Rating maxRating={5} clearable />
+          <Rating maxRating={5} clearable rating= {averageRating} onRate={handleRate}/>
+         
+          
         </div>
 
         <a>

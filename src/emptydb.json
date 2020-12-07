@@ -1,0 +1,25 @@
+{
+    "users": [
+      {
+        "id": 1,
+        "name": "",
+        "password": "12345",
+        "email": ""
+      }
+  
+    ],
+    "recipes": [
+      {
+        "id": 1,
+        "userId": 1,
+        "imageUrl": "",
+        "videoUrl": "",
+        "title": "",
+        "calories": "",
+        "instructions": "",
+        "ratings": []
+      }
+     
+    ]
+  }
+
