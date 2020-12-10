@@ -11,7 +11,7 @@ import {
 } from "semantic-ui-react";
 import RecipeAdd from "./RecipeAdd";
 
-const RecipeCard = ({info}) => {
+const RecipeCard = ({info}, children) => {
   const [open, setOpen] = useState(false);
   // const ratings = info.rating
   console.log(info)

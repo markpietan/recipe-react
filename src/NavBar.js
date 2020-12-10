@@ -37,6 +37,14 @@ import { Link } from "react-router-dom";
         </Menu.Item>
 
         <Menu.Item
+          name="Recipe Add"
+          active={activeItem === "Recipe Add"}
+          onClick={handleItemClick}
+        >
+          <Link to="/recipe-add">Recipe Add</Link>
+        </Menu.Item>
+
+        <Menu.Item
           name="Favorites"
           active={activeItem === "Favorites"}
           onClick={handleItemClick}

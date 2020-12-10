@@ -1,13 +1,14 @@
 import "./App.css";
 import NavBar from "./NavBar";
 import "semantic-ui-css/semantic.min.css";
-import { Route } from "react-router-dom";
+import { Route, useParams } from "react-router-dom";
 import LogIn from "./LogIn";
 import Home from "./Home";
 import RecipeList from "./RecipeList";
 import RecipeAdd from "./RecipeAdd";
 import React, {useState} from 'react'
 import Favorites from "./Favorites"
+import RecipeDetails from "./RecipeDetails"
 
 function App() {
 const [user, setUser] = useState('')
@@ -28,7 +29,7 @@ const [user, setUser] = useState('')
         <Favorites></Favorites>
       </Route>
       <Route path="/recipes/:id">
-          Hello
+          <RecipeDetails></RecipeDetails> 
         </Route>
       <Route path="/login">
         <LogIn setUser= {setUser} registration={false}></LogIn>
@@ -37,6 +38,18 @@ const [user, setUser] = useState('')
         <LogIn registration={true}></LogIn>
       </Route>
     </main>
+  );
+}
+
+function Child() {
+  // We can use the `useParams` hook here to access
+  // the dynamic pieces of the URL.
+  let { id } = useParams();
+
+  return (
+    <div>
+      <h3>ID: {id}</h3>
+    </div>
   );
 }
 
