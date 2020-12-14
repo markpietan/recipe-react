@@ -8,6 +8,8 @@ import {
   Image,
   Flag,
   Embed,
+  Rating,
+  Segment,
 } from "semantic-ui-react";
 import { useParams } from "react-router-dom";
 
@@ -26,11 +28,36 @@ const RecipeDetails = () => {
     }
     getRecipeDetails();
   }, []);
-
+  let averageRating;
+  if (recipeDetails) {
+    let some = 0;
+    for (let index = 0; index < recipeDetails.rating.length; index++) {
+      const element = recipeDetails.rating[index];
+      some += element;
+    }
+    averageRating = Math.round(some / recipeDetails.rating.length);
+  }
+  const [userDetails, setuserDetails] = useState(null);
+  useEffect(() => {
+    async function getUserDetails() {
+      try {
+        const response = await axios.get(
+          "http://localhost:3001/users/" + recipeDetails.userId
+        );
+        setuserDetails(response.data);
+        console.log(response.data);
+      } catch (error) {
+        throw error;
+      }
+    }
+    if (recipeDetails) {
+      getUserDetails();
+    }
+  }, [recipeDetails]);
   console.log(id);
   return (
     <Container textAlign="center" text fluid style={{ padding: "2rem" }}>
-      {recipeDetails ? (
+      {recipeDetails && userDetails ? (
         <div>
           <Header as="h1">{recipeDetails.title}</Header>
           <Header as="h2">
@@ -38,6 +65,7 @@ const RecipeDetails = () => {
             <Flag name="morocco"></Flag>
           </Header>
           <Header as="h3">{recipeDetails.calories} calories</Header>
+          <Rating maxRating={5} rating={averageRating} />
           <Image src={recipeDetails.imageUrl} size="medium"></Image>
           <p>{recipeDetails.instructions}</p>
           <Embed
@@ -46,6 +74,24 @@ const RecipeDetails = () => {
             )}
             source="youtube"
           />
+          <Segment
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+            padded
+          >
+            <Image
+              src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
+              circular
+              size="small"
+            />
+            <div>
+              <p>{userDetails.name}</p>
+              <Header>{userDetails.email}</Header>
+            </div>
+          </Segment>
         </div>
       ) : (
         <Loader active></Loader>
@@ -56,7 +102,5 @@ const RecipeDetails = () => {
     </Container>
   );
 };
-
-//react.semantic-ui.com/images/avatar/large/matthew.png
 
 export default RecipeDetails;

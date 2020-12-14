@@ -8,7 +8,9 @@ import {
   Image,
   Card,
   Icon,
+  
 } from "semantic-ui-react";
+import {Link} from "react-router-dom";
 import RecipeAdd from "./RecipeAdd";
 
 const RecipeCard = ({info}, children) => {
@@ -53,7 +55,7 @@ const RecipeCard = ({info}, children) => {
           {" "}
           <Modal.Header>{info.title}</Modal.Header>
           <Modal.Content image>
-            <Image size="medium" src={info.imageUrl} wrapped />
+            <Image size="large" src={info.imageUrl} wrapped />
             <Modal.Description>
               <Header>{info.calories} calories</Header>
               <p>{info.instructions}</p>
@@ -66,9 +68,13 @@ const RecipeCard = ({info}, children) => {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               ></iframe>
+              {/* <image>{info.}</image> */}
             </Modal.Description>
           </Modal.Content>
         </Modal>
+        <Link to= {"/recipes/" + info.id}>
+        <Button>Details Page</Button>
+        </Link>
       </Card.Content>
       <Card.Content extra>
         <div>

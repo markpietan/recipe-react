@@ -9,6 +9,7 @@ import RecipeAdd from "./RecipeAdd";
 import React, {useState} from 'react'
 import Favorites from "./Favorites"
 import RecipeDetails from "./RecipeDetails"
+import UserDetails from "./UserDetails"
 
 function App() {
 const [user, setUser] = useState('')
@@ -27,6 +28,9 @@ const [user, setUser] = useState('')
       </Route>
       <Route path='/favorites'>
         <Favorites></Favorites>
+      </Route>
+      <Route path='/users/:id'>
+        <UserDetails></UserDetails>
       </Route>
       <Route path="/recipes/:id">
           <RecipeDetails></RecipeDetails> 
