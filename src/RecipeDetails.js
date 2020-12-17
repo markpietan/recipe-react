@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./RecipeDetails.css" 
 import {
   Grid,
   Container,
@@ -11,7 +12,7 @@ import {
   Rating,
   Segment,
 } from "semantic-ui-react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const RecipeDetails = () => {
   const [recipeDetails, setrecipeDetails] = useState(null);
@@ -74,12 +75,10 @@ const RecipeDetails = () => {
             )}
             source="youtube"
           />
+          <Link to={"/users/" + userDetails.id}>
           <Segment
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
+            className= "recipeDetailSegment"
+           
             padded
           >
             <Image
@@ -92,6 +91,7 @@ const RecipeDetails = () => {
               <Header>{userDetails.email}</Header>
             </div>
           </Segment>
+          </Link>
         </div>
       ) : (
         <Loader active></Loader>

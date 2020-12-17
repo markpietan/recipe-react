@@ -6,7 +6,7 @@ const RECIPE_URL = "https://www.themealdb.com/api/json/v1/1/random.php";
 async function generateSeedArray() {
   try {
     let seedArray = [];
-    for (let index = 0; index < 3; index++) {
+    for (let index = 0; index < 1; index++) {
       let dataObject = {};
       const personResponse = await axios.get(RANDOM_PERSON_URL);
       console.log(personResponse.data.results[0]);

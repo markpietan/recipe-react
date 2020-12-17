@@ -94,27 +94,7 @@ const RecipeAdd = () => {
         </Form>
         </>
           )
-              {/* </Grid.Column>
-              <Grid.Column>
-                <Image src='https://react.semantic-ui.com/images/wireframe/media-paragraph.png' />
-              </Grid.Column>
-              <Grid.Column>
-                <Image src='https://react.semantic-ui.com/images/wireframe/media-paragraph.png' />
-              </Grid.Column>
-            </Grid.Row>
-        
-            <Grid.Row>
-              <Grid.Column>
-                <Image src='https://react.semantic-ui.com/images/wireframe/media-paragraph.png' />
-              </Grid.Column>
-              <Grid.Column>
-                <Image src='https://react.semantic-ui.com/images/wireframe/media-paragraph.png' />
-              </Grid.Column>
-              <Grid.Column>
-                <Image src='https://react.semantic-ui.com/images/wireframe/media-paragraph.png' />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid> */}
+    
           
         };
     
