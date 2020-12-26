@@ -7,6 +7,7 @@ import {
   Header,
   Container,
   Transition,
+  Loader
 } from "semantic-ui-react";
 
 const UserDetails = () => {
@@ -33,6 +34,7 @@ const UserDetails = () => {
           "http://localhost:3001/recipes?userId=" + id
         );
         setrecipeUser(response.data);
+        setVisible(true)
         console.log(response.data);
       } catch (error) {
         throw error;
@@ -40,6 +42,8 @@ const UserDetails = () => {
     }
     getUserRecipes();
   }, []);
+ const [visible, setVisible] = useState(false)
+
 
   return (
     <Container>
@@ -61,14 +65,14 @@ const UserDetails = () => {
             <p>{userDetails.name}</p>
             <Header>{userDetails.email}</Header>
           </div>
-        ) : null}
+        ) :  <Loader active />}
       </Segment>
 
       <Segment.Group>
         {recipeUser &&
           recipeUser.map((recipe) => {
             return (
-              <Transition animation="fade" duration={500} visible>
+              <Transition animation="scale" duration={500} visible={visible}>
                 <Link to={"/recipes/" + recipe.id}>
                   <Segment
                     size="large"

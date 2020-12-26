@@ -15,7 +15,7 @@ function App() {
 const [user, setUser] = useState('')
   return (
     <main>
-      <NavBar setUser= {setUser} user= {user}></NavBar>
+      <NavBar className="nav-color" setUser= {setUser} user= {user}></NavBar>
       <Route path="/" exact>
         <Home></Home>
       </Route>

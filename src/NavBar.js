@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Menu, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import "./NavBar.css"
 
 
   function NavBar({user, setUser}) {
@@ -11,7 +12,7 @@ import { Link } from "react-router-dom";
 
   return (
     <nav>
-      <Menu inverted>
+      <Menu inverted className="nav-color">
       <Menu.Item
           name=""
           active={activeItem === ""}
