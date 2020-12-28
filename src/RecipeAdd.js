@@ -9,6 +9,8 @@ const RecipeAdd = () => {
         const [title, setTitle] = useState("");
         const [calories, setCalories] = useState("");
         const [instructions, setInstructions] = useState("");
+        const [area, setArea] = useState("")
+        const [videoUrl, setvideoUrl] = useState("")
         let history = useHistory();
        
       
@@ -18,11 +20,13 @@ const RecipeAdd = () => {
           try {
             const response = await axios.post("http://localhost:3001/recipes", {
 
-                    "userId": 1,
+                    "userId": Number(localStorage.getItem("userId")),
                     "title": title,
                     "imageUrl": imageUrl,
                     "calories": calories,
-                    "instructions": instructions
+                    "instructions": instructions,
+                    "rating": [],
+                    "area": area
                   }
             );
             console.log(response)
@@ -88,7 +92,25 @@ const RecipeAdd = () => {
         
               }}
             />
-           
+             <Form.Input
+              fluid
+              
+              placeholder="Area"
+              type= ""
+              value={area}
+              onChange={(e) => {
+                setArea(e.target.value);
+              }}
+            />  <Form.Input
+            fluid
+            
+            placeholder="Video Url"
+            type= ""
+            value={videoUrl}
+            onChange={(e) => {
+              setvideoUrl(e.target.value);
+            }}
+          />
           </Segment>
           <Button type= 'submit'>Submit</Button>
         </Form>

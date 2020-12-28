@@ -65,6 +65,12 @@
       "email": "kenan.kuzucu@example.com",
       "password": "haley",
       "id": 11
+    },
+    {
+      "name": "",
+      "password": "12345678",
+      "email": "markpietan@yahoo.com",
+      "id": 12
     }
   ],
   "recipes": [
@@ -192,37 +198,35 @@
       "id": 10
     },
     {
-      "title": "Choc Chip Pecan Pie",
-      "imageUrl": "https://www.themealdb.com/images/media/meals/rqvwxt1511384809.jpg",
-      "calories": 470,
-      "instructions": "First, make the pastry. Tip the ingredients into a food processor with 1 /4 tsp salt. Blend until the mixture resembles breadcrumbs. Drizzle 2-3 tsp cold water into the funnel while the blade is running – the mixture should start to clump together. Tip onto a work surface and bring together, kneading briefly into a ball. Pat into a disc, wrap in cling film, and chill for at least 20 mins. Heat oven to 200C/180C fan/gas 6.\r\n\r\nRemove the pastry from the fridge and leave at room temperature for 5 mins to soften. Flour the work surface, then unwrap the pastry and roll to a circle the thickness of a £1 coin. Use the pastry to line a deep, 23cm round fluted tin – mine was about 3cm deep. Press the pastry into the corners and up the sides, making sure there are no gaps. Leave 1cm pastry overhanging (save some of the pastry scraps for later). Line with baking parchment (scrunch it up first to make it more pliable) and fill with baking beans. Blind-bake for 15-20 mins until the sides are set, then remove the parchment and beans and return to the oven for 5 mins until golden brown. Trim the pastry so it’s flush with the top of the tin – a small serrated knife is best for this. If there are any cracks, patch them up with the pastry scraps.\r\n\r\nMeanwhile, weigh the butter, syrup and sugars into a pan, and add 1 /4 tsp salt. Heat until the butter has melted and the sugar dissolved, stirring until smooth. Remove from the heat and cool for 10 mins. Reduce oven to 160C/140C fan/gas 3.\r\n\r\nBeat the eggs in a bowl. Add the syrup mixture, vanilla and pecans, and mix until well combined. Pour half the mixture into the tart case, scatter over half the chocolate chips, then cover with the remaining filling and chocolate chips. Bake on the middle shelf for 50-55 mins until set. Remove from the oven and leave to cool, then chill for at least 2 hrs before serving.",
-      "userId": 2,
-      "videoUrl": "https://www.youtube.com/watch?v=fDpoT0jvg4Y",
-      "area": "American",
-      "rating": [],
-      "id": 8
-    },
-    {
-      "title": "Sweet and Sour Pork",
-      "imageUrl": "https://www.themealdb.com/images/media/meals/1529442316.jpg",
-      "calories": 1431,
-      "instructions": "Preparation\r\n1. Crack the egg into a bowl. Separate the egg white and yolk.\r\n\r\nSweet and Sour Pork\r\n2. Slice the pork tenderloin into strips.\r\n\r\n3. Prepare the marinade using a pinch of salt, one teaspoon of starch, two teaspoons of light soy sauce, and an egg white.\r\n\r\n4. Marinade the pork strips for about 20 minutes.\r\n\r\n5. Put the remaining starch in a bowl. Add some water and vinegar to make a starchy sauce.\r\n\r\nSweet and Sour Pork\r\nCooking Instructions\r\n1. Pour the cooking oil into a wok and heat to 190°C (375°F). Add the marinated pork strips and fry them until they turn brown. Remove the cooked pork from the wok and place on a plate.\r\n\r\n2. Leave some oil in the wok. Put the tomato sauce and white sugar into the wok, and heat until the oil and sauce are fully combined.\r\n\r\n3. Add some water to the wok and thoroughly heat the sweet and sour sauce before adding the pork strips to it.\r\n\r\n4. Pour in the starchy sauce. Stir-fry all the ingredients until the pork and sauce are thoroughly mixed together.\r\n\r\n5. Serve on a plate and add some coriander for decoration.",
-      "userId": 12,
-      "videoUrl": "https://www.youtube.com/watch?v=mdaBIhgEAMo",
-      "area": "Chinese",
-      "rating": [],
-      "id": 9
-    },
-    {
       "title": "Turkey Meatloaf",
       "imageUrl": "https://www.themealdb.com/images/media/meals/ypuxtw1511297463.jpg",
       "calories": 1451,
       "instructions": "Heat oven to 180C/160C fan/gas 4. Heat the oil in a large frying pan and cook the onion for 8-10 mins until softened. Add the garlic, Worcestershire sauce and 2 tsp tomato purée, and stir until combined. Set aside to cool.\r\n\r\nPut the turkey mince, egg, breadcrumbs and cooled onion mix in a large bowl and season well. Mix everything to combine, then shape into a rectangular loaf and place in a large roasting tin. Spread 2 tbsp barbecue sauce over the meatloaf and bake for 30 mins.\r\n\r\nMeanwhile, drain 1 can of beans only, then pour both cans into a large bowl. Add the remaining barbecue sauce and tomato purée. Season and set aside.\r\n\r\nWhen the meatloaf has had its initial cooking time, scatter the beans around the outside and bake for 15 mins more until the meatloaf is cooked through and the beans are piping hot. Scatter over the parsley and serve the meatloaf in slices.",
-      "userId": 2,
+      "userId": 12,
       "videoUrl": "https://www.youtube.com/watch?v=mTvlmY4vCug",
       "area": "British",
       "rating": [],
-      "id": 10
+      "id": 13
+    },
+    {
+      "userId": 12,
+      "title": "cake",
+      "imageUrl": "https://www.themealdb.com/images/media/meals/ypuxtw1511297463.jpg",
+      "calories": "3000",
+      "instructions": "bake ",
+      "rating": [],
+      "id": 15,
+      "area": "British"
+    },
+    {
+      "userId": 12,
+      "title": "fish",
+      "imageUrl": "https://www.themealdb.com/images/media/meals/ypuxtw1511297463.jpg",
+      "calories": "200",
+      "instructions": "fry",
+      "rating": [],
+      "id": 16,
+      "area": "British"
     }
   ]
 }

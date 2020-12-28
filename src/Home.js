@@ -36,7 +36,7 @@ const Home = () => {
             </p>
           </Grid.Column>
           <Grid.Column>
-            <Image src="https://react.semantic-ui.com/images/avatar/large/matthew.png"></Image>
+            <Image src="https://www.flaticon.com/svg/static/icons/svg/706/706195.svg"></Image>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa quod
               animi nisi adipisci odio sed ullam nobis est illo. Quis nulla sunt
@@ -45,7 +45,7 @@ const Home = () => {
             </p>
           </Grid.Column>
           <Grid.Column>
-            <Image src="https://react.semantic-ui.com/images/avatar/large/matthew.png"></Image>
+            <Image src="https://www.flaticon.com/svg/static/icons/svg/3082/3082055.svg"></Image>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa quod
               animi nisi adipisci odio sed ullam nobis est illo. Quis nulla sunt

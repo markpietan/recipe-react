@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios"
+import axios from "axios";
 import {
   Rating,
   Button,
@@ -8,33 +8,35 @@ import {
   Image,
   Card,
   Icon,
-  
 } from "semantic-ui-react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import RecipeAdd from "./RecipeAdd";
 
-const RecipeCard = ({info}, children) => {
+const RecipeCard = ({ info }, children) => {
   const [open, setOpen] = useState(false);
   // const ratings = info.rating
-  console.log(info)
-  let some = 0
+
+  let some = 0;
   for (let index = 0; index < info.rating.length; index++) {
     const element = info.rating[index];
-    some+= element 
+    some += element;
   }
-  async function handleRate(e, {rating}){
+  async function handleRate(e, { rating }) {
     try {
-      const ratingArray = [...info.rating]
-      ratingArray.push(rating)
-      const response = await axios.patch("http://localhost:3001/recipes/"+ info.id, {
-        rating: ratingArray
-      })
-      console.log("Submitted Ratings")
+      const ratingArray = [...info.rating];
+      ratingArray.push(rating);
+      const response = await axios.patch(
+        "http://localhost:3001/recipes/" + info.id,
+        {
+          rating: ratingArray,
+        }
+      );
+      console.log("Submitted Ratings");
     } catch (error) {
-      throw(error)
+      throw error;
     }
   }
-  const averageRating = Math.round(some/info.rating.length)
+  const averageRating = Math.round(some / info.rating.length);
   return (
     <Card>
       <Image src={info.imageUrl} wrapped ui={false} />
@@ -68,19 +70,26 @@ const RecipeCard = ({info}, children) => {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               ></iframe>
+
               {/* <image>{info.}</image> */}
             </Modal.Description>
+            <div>
+              <Button center="">Favorites</Button>
+            </div>
           </Modal.Content>
         </Modal>
-        <Link to= {"/recipes/" + info.id}>
-        <Button>Details Page</Button>
+        <Link to={"/recipes/" + info.id}>
+          <Button>Details Page</Button>
         </Link>
       </Card.Content>
       <Card.Content extra>
         <div>
-          <Rating maxRating={5} clearable rating= {averageRating} onRate={handleRate}/>
-         
-          
+          <Rating
+            maxRating={5}
+            clearable
+            rating={averageRating}
+            onRate={handleRate}
+          />
         </div>
 
         <a>

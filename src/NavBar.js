@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Button, Menu, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import "./NavBar.css"
+import "./NavBar.css";
 
-
-  function NavBar({user, setUser}) {
+function NavBar({ user, setUser }) {
   const [activeItem, setactiveItem] = useState("");
   const handleItemClick = (e, { name }) => {
     setactiveItem(name);
@@ -13,12 +12,10 @@ import "./NavBar.css"
   return (
     <nav>
       <Menu inverted className="nav-color">
-      <Menu.Item
-          name=""
-          active={activeItem === ""}
-          onClick={handleItemClick}
-        >
-          <Link to="/"><Icon name= "food"></Icon></Link>
+        <Menu.Item name="" active={activeItem === ""} onClick={handleItemClick}>
+          <Link to="/">
+            <Icon name="food"></Icon>
+          </Link>
         </Menu.Item>
 
         <Menu.Item
@@ -36,22 +33,25 @@ import "./NavBar.css"
         >
           <Link to="/recipes">Recipe List</Link>
         </Menu.Item>
+        {user !== "" ? (
+          <Menu.Item
+            name="Recipe Add"
+            active={activeItem === "Recipe Add"}
+            onClick={handleItemClick}
+          >
+            <Link to="/recipe-add">Recipe Add</Link>
+          </Menu.Item>
+        ) : null}
 
-        <Menu.Item
-          name="Recipe Add"
-          active={activeItem === "Recipe Add"}
-          onClick={handleItemClick}
-        >
-          <Link to="/recipe-add">Recipe Add</Link>
-        </Menu.Item>
-
-        <Menu.Item
-          name="Favorites"
-          active={activeItem === "Favorites"}
-          onClick={handleItemClick}
-        >
-          <Link to="/favorites">Favorites</Link>
-        </Menu.Item>
+        {user !== "" ? (
+          <Menu.Item
+            name="Favorites"
+            active={activeItem === "Favorites"}
+            onClick={handleItemClick}
+          >
+            <Link to="/favorites">Favorites</Link>
+          </Menu.Item>
+        ) : null}
 
         <Menu.Item
           name="Log In"
@@ -59,10 +59,19 @@ import "./NavBar.css"
           position="right"
           onClick={handleItemClick}
         >
-         {user !== '' ?  <Link to="/" onClick={()=>{
-           setUser('')
-           localStorage.clear()}}>Log Out</Link> :  <Link to="/login">Log In</Link>}
-         
+          {user !== "" ? (
+            <Link
+              to="/"
+              onClick={() => {
+                setUser("");
+                localStorage.clear();
+              }}
+            >
+              Log Out
+            </Link>
+          ) : (
+            <Link to="/login">Log In</Link>
+          )}
         </Menu.Item>
       </Menu>
     </nav>

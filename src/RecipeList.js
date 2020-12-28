@@ -19,6 +19,13 @@ const RecipeList = () => {
   const [chosenButton, setchosenButton] = useState("");
   const [filteredRecipe, setfilteredRecipe] = useState([]);
   useEffect(() => {
+    if (title === "") {
+     
+      setfilteredRecipe(recipe.slice())
+    }
+    console.log(title)
+  }, [title])
+  useEffect(() => {
     async function getAllRecipes() {
       try {
         const response = await axios.get("http://localhost:3001/recipes");
@@ -35,24 +42,26 @@ const RecipeList = () => {
   };
   const handleSubmit = () => {
     if (chosenButton === "Area") {
-      let copy = filteredRecipe.slice();
+      let copy = recipe.slice();
       const options = {
         includeScore: true,
       };
     
       let newArray = copy.filter((recipe) => {
+        console.log(recipe)
         let areaArray = recipe.area.split(" ")
         const fuse = new Fuse(areaArray, options);
        
         const result = fuse.search(title);
         console.log(result)
-        if (recipe.length >= 0 && result[0].score <= REJECTION_THRESHOLD) {
+        if (result.length > 0 && result[0].score <= REJECTION_THRESHOLD) {
           return true
         } else {
           return false
         }
       });
       console.log(newArray)
+      setfilteredRecipe(newArray)
     }
   };
   return (
@@ -99,7 +108,7 @@ const RecipeList = () => {
       <Grid columns="3" centered padded="horizontally">
         {filteredRecipe.length <= 0 ? (
           <Loader active />
-        ) : (
+        ) : (  
           filteredRecipe.map((e) => {
             return (
               <Grid.Column key={e.id} textAlign="center">

@@ -6,13 +6,19 @@ import LogIn from "./LogIn";
 import Home from "./Home";
 import RecipeList from "./RecipeList";
 import RecipeAdd from "./RecipeAdd";
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Favorites from "./Favorites"
 import RecipeDetails from "./RecipeDetails"
 import UserDetails from "./UserDetails"
 
 function App() {
 const [user, setUser] = useState('')
+useEffect(()=> {
+   let response = localStorage.getItem("userId")
+  if (response !== null) {
+    setUser(response)
+  } 
+}, [])
   return (
     <main>
       <NavBar className="nav-color" setUser= {setUser} user= {user}></NavBar>
@@ -30,7 +36,7 @@ const [user, setUser] = useState('')
         <Favorites></Favorites>
       </Route>
       <Route path='/users/:id'>
-        <UserDetails></UserDetails>
+        <UserDetails user= {user}></UserDetails>
       </Route>
       <Route path="/recipes/:id">
           <RecipeDetails></RecipeDetails> 
@@ -45,16 +51,6 @@ const [user, setUser] = useState('')
   );
 }
 
-function Child() {
-  // We can use the `useParams` hook here to access
-  // the dynamic pieces of the URL.
-  let { id } = useParams();
 
-  return (
-    <div>
-      <h3>ID: {id}</h3>
-    </div>
-  );
-}
 
 export default App;
