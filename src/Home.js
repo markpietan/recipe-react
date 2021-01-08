@@ -29,37 +29,25 @@ const Home = () => {
             <Image src="https://www.flaticon.com/svg/static/icons/svg/2917/2917633.svg"></Image>
             
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa quod
-              animi nisi adipisci odio sed ullam nobis est illo. Quis nulla sunt
-              accusantium placeat est? Laudantium assumenda libero tempora
-              porro!
+             Create new recipes and organize old favorite recipes in one area!
             </p>
           </Grid.Column>
           <Grid.Column>
             <Image src="https://www.flaticon.com/svg/static/icons/svg/706/706195.svg"></Image>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa quod
-              animi nisi adipisci odio sed ullam nobis est illo. Quis nulla sunt
-              accusantium placeat est? Laudantium assumenda libero tempora
-              porro!
+             Post and access Youtube instructional videos of all your favorite recipes!
             </p>
           </Grid.Column>
           <Grid.Column>
             <Image src="https://www.flaticon.com/svg/static/icons/svg/3082/3082055.svg"></Image>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa quod
-              animi nisi adipisci odio sed ullam nobis est illo. Quis nulla sunt
-              accusantium placeat est? Laudantium assumenda libero tempora
-              porro!
+              Custom search recipes by country name, calories amount, and by favorites!
             </p>
           </Grid.Column>
           <Grid.Column>
-            <Image src="https://react.semantic-ui.com/images/avatar/large/matthew.png"></Image>
+            <Image src="https://www.flaticon.com/svg/static/icons/svg/1261/1261163.svg"></Image>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa quod
-              animi nisi adipisci odio sed ullam nobis est illo. Quis nulla sunt
-              accusantium placeat est? Laudantium assumenda libero tempora
-              porro!
+             Rate recipes to keep track of all the great ones!
             </p>
           </Grid.Column>
         </Grid>

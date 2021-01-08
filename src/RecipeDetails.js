@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import axios from "axios";
 import "./RecipeDetails.css" 
 import {
@@ -12,10 +12,11 @@ import {
   Rating,
   Segment,
 } from "semantic-ui-react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 
 const RecipeDetails = () => {
   const [recipeDetails, setrecipeDetails] = useState(null);
+  let history = useHistory()
   let { id } = useParams();
   useEffect(() => {
     async function getRecipeDetails() {
@@ -56,6 +57,13 @@ const RecipeDetails = () => {
     }
   }, [recipeDetails]);
   console.log(id);
+  useEffect(() => {
+    let user = localStorage.getItem("userId")
+    if (user === null) {
+      history.push("/404")
+    }
+
+  }, [])
   return (
     <Container textAlign="center" text fluid style={{ padding: "2rem" }}>
       {recipeDetails && userDetails ? (

@@ -1,18 +1,19 @@
 import React, {useState, useEffect } from 'react'
 import { Form, Segment, Grid, Image, Header, Icon, TextArea, Button } from 'semantic-ui-react'
 import axios from 'axios'
-import {useHistory} from 'react-router-dom'
+import {useHistory, useParams} from 'react-router-dom'
 
-const RecipeAdd = () => {
+const RecipeEdit = () => {
    
         const [imageUrl, setimageUrl] = useState("");
         const [title, setTitle] = useState("");
+        const [rating, setRating] = useState([])
         const [calories, setCalories] = useState("");
         const [instructions, setInstructions] = useState("");
         const [area, setArea] = useState("")
         const [videoUrl, setvideoUrl] = useState("")
         let history = useHistory();
-       
+        let id = useParams().id;
       useEffect(() => {
          let user = localStorage.getItem("userId")
          if (user === null) {
@@ -20,18 +21,37 @@ const RecipeAdd = () => {
          }
 
        }, [])
+
+       useEffect(() => {
+        async function getRecipeDetails() {
+            try {
+              const response = await axios.get("http://localhost:3001/recipes/" + id);
+              setTitle(response.data.title)
+              setCalories(response.data.calories)
+              setimageUrl(response.data.imageUrl)
+              setInstructions(response.data.instructions)
+              setArea(response.data.area)
+              setvideoUrl(response.data.videoUrl)
+              setRating(response.data.rating)
+              console.log(response.data);
+            } catch (error) {
+              throw error;
+            }
+          }
+          getRecipeDetails();
+       }, [])
       
         const onSubmit = async (e) => {
           e.preventDefault();
           try {
-            const response = await axios.post("http://localhost:3001/recipes", {
+            const response = await axios.patch("http://localhost:3001/recipes/" + id, {
 
                     "userId": Number(localStorage.getItem("userId")),
                     "title": title,
                     "imageUrl": imageUrl,
                     "calories": calories,
                     "instructions": instructions,
-                    "rating": [],
+                    "rating": rating,
                     "area": area
                   }
             );
@@ -126,4 +146,4 @@ const RecipeAdd = () => {
           
         };
     
-        export default RecipeAdd
+        export default RecipeEdit

@@ -26,6 +26,7 @@ const LoginForm = ({ registration, setUser }) => {
         name: "",
         password: passWord,
         email: userName,
+        favorites: [],
       });
       console.log(response);
       history.push("/");

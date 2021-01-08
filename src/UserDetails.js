@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import {
   Segment,
   Image,
@@ -14,6 +14,7 @@ import {
 const UserDetails = ({ user }) => {
   const [userDetails, setuserDetails] = useState(null);
   let id = useParams().id;
+  let history = useHistory();
   console.log(id);
   useEffect(() => {
     async function getUserDetails() {
@@ -43,6 +44,14 @@ const UserDetails = ({ user }) => {
     }
     getUserRecipes();
   }, []);
+
+  useEffect(() => {
+    let user = localStorage.getItem("userId")
+    if (user === null) {
+      history.push("/404")
+    }
+
+  }, [])
   const [visible, setVisible] = useState(false);
 
   async function handleDelete(recipeId) {
@@ -108,8 +117,9 @@ const UserDetails = ({ user }) => {
                     <p>{recipe.calories}</p>
                     {user === id ? (
                       <div>
+                        <Link to= {`/recipes/edit/${recipe.id}`}>
                         <Button center="">Edit</Button>
-
+                        </Link>
                         <Button
                           onClick={() => {
                             handleDelete(recipe.id);

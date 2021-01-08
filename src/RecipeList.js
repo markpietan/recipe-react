@@ -10,27 +10,45 @@ import {
   Radio,
   Loader,
   Button,
+  Transition,
 } from "semantic-ui-react";
 
-const REJECTION_THRESHOLD = 0.3
+const REJECTION_THRESHOLD = 0.3;
 const RecipeList = () => {
   const [recipe, setRecipe] = useState([]);
   const [title, setTitle] = useState("");
   const [chosenButton, setchosenButton] = useState("");
+  const [clickUserInfo, setclickUserInfo] = useState(null)
   const [filteredRecipe, setfilteredRecipe] = useState([]);
+
   useEffect(() => {
     if (title === "") {
-     
-      setfilteredRecipe(recipe.slice())
+      setfilteredRecipe(recipe.slice());
     }
-    console.log(title)
-  }, [title])
+    console.log(title);
+  }, [title]);
+
+  useEffect(() => {
+    async function getLoggedInUser() {
+      try {
+        const response = await axios.get("http://localhost:3001/users/" + localStorage.getItem("userId"));
+        setclickUserInfo(response.data);
+        
+       
+      } catch (error) {
+        throw error;
+      }
+    }
+    getLoggedInUser();
+  }, []);
+
   useEffect(() => {
     async function getAllRecipes() {
       try {
         const response = await axios.get("http://localhost:3001/recipes");
         setRecipe(response.data);
         setfilteredRecipe(response.data);
+       
       } catch (error) {
         throw error;
       }
@@ -46,24 +64,52 @@ const RecipeList = () => {
       const options = {
         includeScore: true,
       };
-    
+
       let newArray = copy.filter((recipe) => {
-        console.log(recipe)
-        let areaArray = recipe.area.split(" ")
+        console.log(recipe);
+        let areaArray = recipe.area.split(" ");
         const fuse = new Fuse(areaArray, options);
-       
+
         const result = fuse.search(title);
-        console.log(result)
+        console.log(result);
         if (result.length > 0 && result[0].score <= REJECTION_THRESHOLD) {
-          return true
+          return true;
         } else {
-          return false
+          return false;
         }
       });
-      console.log(newArray)
-      setfilteredRecipe(newArray)
+      console.log(newArray);
+      setfilteredRecipe(newArray);
+    } else if (chosenButton === "Calories") {
+      let copy = recipe.slice();
+
+      let newArray = copy.filter((recipe) => {
+        if (recipe.calories < Number(title)) {
+          return true;
+        }
+        return false;
+      });
+      setfilteredRecipe(newArray);
+    } else if (chosenButton === "Rating") {
+      let copy = recipe.slice();
+
+      let newArray = copy.filter((recipe) => {
+        console.log(recipe);
+        let average = 0;
+        recipe.rating.forEach((oneRating) => {
+          average += oneRating;
+        });
+        average = Math.round(average / recipe.rating.length);
+        console.log(average);
+        if (!isNaN(average) && average <= Number(title)) {
+          return true;
+        }
+        return false;
+      });
+      setfilteredRecipe(newArray);
     }
   };
+
   return (
     <Container fluid style={{ padding: "2rem" }}>
       <Form onSubmit={handleSubmit}>
@@ -108,11 +154,11 @@ const RecipeList = () => {
       <Grid columns="3" centered padded="horizontally">
         {filteredRecipe.length <= 0 ? (
           <Loader active />
-        ) : (  
+        ) : (
           filteredRecipe.map((e) => {
             return (
               <Grid.Column key={e.id} textAlign="center">
-                <RecipeCard info={e}></RecipeCard>
+                <RecipeCard user= {clickUserInfo} info={e}></RecipeCard>
               </Grid.Column>
             );
           })

@@ -1,7 +1,7 @@
 import "./App.css";
 import NavBar from "./NavBar";
 import "semantic-ui-css/semantic.min.css";
-import { Route, useParams } from "react-router-dom";
+import { Route, useParams, Switch } from "react-router-dom";
 import LogIn from "./LogIn";
 import Home from "./Home";
 import RecipeList from "./RecipeList";
@@ -10,6 +10,8 @@ import React, {useEffect, useState} from 'react'
 import Favorites from "./Favorites"
 import RecipeDetails from "./RecipeDetails"
 import UserDetails from "./UserDetails"
+import PageNotFound from "./404";
+import RecipeEdit from "./RecipeEdit";
 
 function App() {
 const [user, setUser] = useState('')
@@ -22,6 +24,10 @@ useEffect(()=> {
   return (
     <main>
       <NavBar className="nav-color" setUser= {setUser} user= {user}></NavBar>
+      <Switch>
+        <Route path="/recipes/edit/:id" >
+           <RecipeEdit></RecipeEdit>
+        </Route>
       <Route path="/" exact>
         <Home></Home>
       </Route>
@@ -47,6 +53,10 @@ useEffect(()=> {
       <Route path="/registration">
         <LogIn registration={true}></LogIn>
       </Route>
+      <Route>
+        <PageNotFound></PageNotFound>
+      </Route>
+      </Switch>
     </main>
   );
 }
