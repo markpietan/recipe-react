@@ -81,6 +81,7 @@ const UserDetails = ({ user }) => {
       >
         <Image
           src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
+          alt="User Icon Image" 
           circular
           size="small"
         />

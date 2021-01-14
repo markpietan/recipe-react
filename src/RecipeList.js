@@ -18,7 +18,7 @@ const RecipeList = () => {
   const [recipe, setRecipe] = useState([]);
   const [title, setTitle] = useState("");
   const [chosenButton, setchosenButton] = useState("");
-  const [clickUserInfo, setclickUserInfo] = useState(null)
+  const [clickUserInfo, setclickUserInfo] = useState(null);
   const [filteredRecipe, setfilteredRecipe] = useState([]);
 
   useEffect(() => {
@@ -31,15 +31,17 @@ const RecipeList = () => {
   useEffect(() => {
     async function getLoggedInUser() {
       try {
-        const response = await axios.get("http://localhost:3001/users/" + localStorage.getItem("userId"));
+        const response = await axios.get(
+          "http://localhost:3001/users/" + localStorage.getItem("userId")
+        );
         setclickUserInfo(response.data);
-        
-       
       } catch (error) {
         throw error;
       }
     }
-    getLoggedInUser();
+    if (localStorage.getItem("userId") !== null) {
+      getLoggedInUser()
+    } 
   }, []);
 
   useEffect(() => {
@@ -48,7 +50,6 @@ const RecipeList = () => {
         const response = await axios.get("http://localhost:3001/recipes");
         setRecipe(response.data);
         setfilteredRecipe(response.data);
-       
       } catch (error) {
         throw error;
       }
@@ -112,7 +113,7 @@ const RecipeList = () => {
 
   return (
     <Container fluid style={{ padding: "2rem" }}>
-      <Form onSubmit={handleSubmit}>
+      <Form style={{ padding: "20px" }} onSubmit={handleSubmit}>
         <Form.Input
           fluid
           type=""
@@ -149,7 +150,9 @@ const RecipeList = () => {
             onChange={handleChange}
           />
         </Form.Field>
-        <Button type="submit">Submit</Button>
+        <Button color="black" type="submit">
+          Submit
+        </Button>
       </Form>
       <Grid columns="3" centered padded="horizontally">
         {filteredRecipe.length <= 0 ? (
@@ -158,7 +161,7 @@ const RecipeList = () => {
           filteredRecipe.map((e) => {
             return (
               <Grid.Column key={e.id} textAlign="center">
-                <RecipeCard user= {clickUserInfo} info={e}></RecipeCard>
+                <RecipeCard user={clickUserInfo} info={e}></RecipeCard>
               </Grid.Column>
             );
           })

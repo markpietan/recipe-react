@@ -31,13 +31,18 @@
     align-items: center;
 }
     
-.ui.button.call {
+.call {
     background-color: var(--steelTeal);
     padding: 1rem;
     font-size: larger;
+    color: white;
+    z-index: 100;
 }
 
 .ui.header {
     color: white;
 }
 
+.article {
+    background-color : var(--xanadu);
+}

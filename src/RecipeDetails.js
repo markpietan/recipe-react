@@ -65,18 +65,18 @@ const RecipeDetails = () => {
 
   }, [])
   return (
-    <Container textAlign="center" text fluid style={{ padding: "2rem" }}>
+    <Container textAlign="center" text fluid style={{ padding: "0rem" }}>
       {recipeDetails && userDetails ? (
         <div>
-          <Header as="h1">{recipeDetails.title}</Header>
-          <Header as="h2">
+          <Header as= 'h1' size= 'huge'>{recipeDetails.title}</Header>
+          <Header as= 'h1' size= 'huge'>
             {recipeDetails.area}
             <Flag name="morocco"></Flag>
           </Header>
           <Header as="h3">{recipeDetails.calories} calories</Header>
           <Rating maxRating={5} rating={averageRating} />
-          <Image src={recipeDetails.imageUrl} size="medium"></Image>
-          <p>{recipeDetails.instructions}</p>
+          <Image style={{ padding: "10px" }} src={recipeDetails.imageUrl} size="medium"></Image>
+          <p style={{ padding: "10px" }}>{recipeDetails.instructions}</p>
           <Embed
             id={recipeDetails.videoUrl.slice(
               recipeDetails.videoUrl.indexOf("d/") + 2
@@ -91,9 +91,12 @@ const RecipeDetails = () => {
           >
             <Image
               src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
+              alt="User Icon Image" 
               circular
               size="small"
-            />
+              style={{ padding: "10px" }}
+             />
+             <h2>Click to Edit or Delete Recipes</h2>
             <div>
               <p>{userDetails.name}</p>
               <Header>{userDetails.email}</Header>

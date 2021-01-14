@@ -19,16 +19,19 @@ const RecipeCard = ({ info, user }) => {
   const [favoriteClicked, setfavoriteClicked] = useState(false);
   useEffect(() => {
     setVisible(true);
-    const inFavorites = user.favorites.find((recipeId) => {
-      if (info.id === recipeId) {
-        return true;
-      } else {
-        return false;
+    if (user) {
+      const inFavorites = user.favorites.find((recipeId) => {
+        if (info.id === recipeId) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+      if (inFavorites) {
+        setfavoriteClicked(true);
       }
-    });
-    if (inFavorites) {
-      setfavoriteClicked(true);
     }
+   
   }, []);
   // const ratings = info.rating
 
@@ -106,10 +109,11 @@ const RecipeCard = ({ info, user }) => {
             {info.instructions}
           </Card.Description>
           <Modal
+            style={{ padding: "20px" }}
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
             open={open}
-            trigger={<Button>Click Here</Button>}
+            trigger={<Button color="black">Click Here</Button>}
           >
             {" "}
             <Modal.Header>{info.title}</Modal.Header>
@@ -133,31 +137,65 @@ const RecipeCard = ({ info, user }) => {
               <div></div>
             </Modal.Content>
           </Modal>
-          <Link to={"/recipes/" + info.id}>
-            <Button>Details Page</Button>
-          </Link>
+        
+          {user === null ? 
+             null : 
+             <Link to={"/recipes/" + info.id}>
+             <Button color="black" style={{ padding: "10px" }}>
+               Details Page
+             </Button>
+             </Link>}
+      
         </Card.Content>
         <Card.Content extra>
           <div>
-            <Rating
-              maxRating={5}
-              clearable
-              rating={averageRating}
-              onRate={handleRate}
-            />
+            {user === null ? (
+              <>
+                <Rating
+                  disabled
+                  maxRating={5}
+                  clearable
+                  rating={averageRating}
+                  onRate={handleRate}
+                />
+                <Icon
+                  disabled
+                  color={favoriteClicked ? "red" : "grey"}
+                  onClick={(e) => {
+                    setfavoriteClicked(!favoriteClicked);
+                    if (favoriteClicked === false) {
+                      handleAddFavorite();
+                    } else {
+                      handleRemoveFavorite();
+                    }
+                  }}
+                  name="like"
+                ></Icon>
+              </>
+            ) : (
+              <>
+                <Rating
+                  maxRating={5}
+                  clearable
+                  rating={averageRating}
+                  onRate={handleRate}
+                />
+                <Icon
+                  color={favoriteClicked ? "red" : "grey"}
+                  onClick={(e) => {
+                    setfavoriteClicked(!favoriteClicked);
+                    if (favoriteClicked === false) {
+                      handleAddFavorite();
+                    } else {
+                      handleRemoveFavorite();
+                    }
+                  }}
+                  name="like"
+                ></Icon>
+              </>
+            )}
           </div>
-          <Icon
-            color={favoriteClicked ? "red" : "grey"}
-            onClick={(e) => {
-              setfavoriteClicked(!favoriteClicked);
-              if (favoriteClicked === false) {
-                handleAddFavorite();
-              } else {
-                handleRemoveFavorite();
-              }
-            }}
-            name="like"
-          ></Icon>
+
         </Card.Content>
       </Card>
     </Transition>

@@ -11,7 +11,7 @@ function NavBar({ user, setUser }) {
 
   return (
     <nav>
-      <Menu inverted className="nav-color">
+      <Menu inverted color= "black">
         <Menu.Item name="" active={activeItem === ""} onClick={handleItemClick}>
           <Link to="/">
             <Icon name="food"></Icon>

@@ -61,7 +61,7 @@ const RecipeAdd = () => {
                 setTitle(e.target.value);
               }}
             />
-            <TextArea placeholder='Recipe Instructions' 
+            <TextArea style={{ padding: "14px" }} placeholder='Recipe Instructions' 
              value={instructions}
              onChange={(e) => {
                 setInstructions(e.target.value);
@@ -79,7 +79,7 @@ const RecipeAdd = () => {
             /> */}
             <Form.Input
               fluid
-              
+              style={{ padding: "4px" }}
               placeholder="Calories"
               type= ""
               value={calories}
@@ -118,7 +118,7 @@ const RecipeAdd = () => {
             }}
           />
           </Segment>
-          <Button type= 'submit'>Submit</Button>
+          <Button color= "black" type= 'submit'>Submit</Button>
         </Form>
         </>
           )
