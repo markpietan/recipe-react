@@ -35,6 +35,7 @@ async function generateSeedArray() {
         name: currentElement.name,
         email: currentElement.email,
         password: currentElement.password,
+        favorites: []
       });
       await axios.post("http://localhost:3001/recipes", {
  

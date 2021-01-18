@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   Button,
   Form,
+  Transition,
   Grid,
   Header,
   Icon,
@@ -13,7 +14,13 @@ import axios from "axios";
 const LoginForm = ({ registration, setUser }) => {
   const [userName, setuserName] = useState("");
   // const [error, setError] = useState(false)
-  const [messageVisible, setmessageVisible] = useState(false)
+  const [messageVisible, setmessageVisible] = useState(false);
+  const [messageConfig, setmessageConfig] = useState({
+    header: "",
+    content: "",
+    error: false,
+    success: false,
+  });
   const [passWord, setpassWord] = useState("");
   let history = useHistory();
   // useEffect(() => {
@@ -35,12 +42,44 @@ const LoginForm = ({ registration, setUser }) => {
         favorites: [],
       });
       console.log(response);
-
-      history.push("/");
+      setmessageVisible(true);
+      //put message here
+      setmessageConfig({
+        header: "Registration Successful",
+        content: "Successfully created user " + userName,
+        error: false,
+        success: true,
+      });
+      setTimeout(() => {
+        setmessageConfig({
+          header: "",
+          content: "",
+          error: false,
+          success: false,
+        });
+        setmessageVisible(false);
+        history.push("/");
+      }, 2000);
     } catch (error) {
       console.log(error);
+      console.log(typeof error);
+      setmessageVisible(true);
       //put message here
-      setmessageVisible(true)
+      setmessageConfig({
+        header: "Registration Failed",
+        content: error.toString(),
+        error: true,
+        success: false,
+      });
+      setTimeout(() => {
+        setmessageConfig({
+          header: "",
+          content: "",
+          error: false,
+          success: false,
+        });
+        setmessageVisible(false);
+      }, 2000);
     }
   };
   const onSubmitLogin = async (e) => {
@@ -60,31 +99,95 @@ const LoginForm = ({ registration, setUser }) => {
         console.log("Successfully Logged-in");
         localStorage.setItem("userId", response.data[0].id.toString());
         setUser(response.data[0].id.toString());
-        history.push("/");
+        setmessageVisible(true);
+        //put message here
+        setmessageConfig({
+          header: "Logged-in Successfully",
+          content: "", 
+          error: false,
+          success: true,
+        });
+        setTimeout(() => {
+          setmessageConfig({
+            header: "",
+            content: "",
+            error: false,
+            success: false,
+          });
+          setmessageVisible(false);
+          history.push("/");
+        }, 2000);
       } else {
         console.log("Failed Log-in");
+        setmessageVisible(true);
+        //put message here
+        setmessageConfig({
+          header: "Log-in Failed",
+          content: "Please try again",
+          error: true,
+          success: false,
+        });
+        setTimeout(() => {
+          setmessageConfig({
+            header: "",
+            content: "",
+            error: false,
+            success: false,
+          });
+          setmessageVisible(false);
+        }, 2000);
       }
     } catch (error) {
       console.log(error);
+      setmessageVisible(true);
+      //put message here
+      setmessageConfig({
+        header: "Log-in Failed",
+        content: error.toString(),
+        error: true,
+        success: false,
+      });
+      setTimeout(() => {
+        setmessageConfig({
+          header: "",
+          content: "",
+          error: false,
+          success: false,
+        });
+        setmessageVisible(false);
+      }, 2000);
     }
   };
   return (
     <>
-      <Message
-      onDismiss={()=>{
-        setmessageVisible(false)
-      }}
-        compact
-        size="large"
-        content="Failed Log-In"
-        header="Error"
-        error
-        visible={messageVisible ? true : false}
-        hidden={messageVisible ? false : true}
+      <Transition
+        duration={2000}
+        animation="scale"
+        visible={messageVisible}
+        unmountOnHide={true}
       >
-        {/* <Icon name= "ban"></Icon> */}
-      </Message>
-
+        <Message
+          onDismiss={() => {
+            setmessageConfig({
+              header: "",
+              content: "",
+              error: false,
+              success: false,
+            });
+            setmessageVisible(false);
+          }}
+          compact
+          size="large"
+          content={messageConfig.content}
+          header={messageConfig.header}
+          error={messageConfig.error}
+          success={messageConfig.success}
+          visible={true}
+          hidden={false}
+        >
+          {/* <Icon name= "ban"></Icon> */}
+        </Message>
+      </Transition>
       <Grid
         textAlign="center"
         style={{ height: "100vh" }}

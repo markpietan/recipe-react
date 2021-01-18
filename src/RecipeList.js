@@ -10,6 +10,7 @@ import {
   Radio,
   Loader,
   Button,
+  Message,
   Transition,
 } from "semantic-ui-react";
 
@@ -20,7 +21,13 @@ const RecipeList = () => {
   const [chosenButton, setchosenButton] = useState("");
   const [clickUserInfo, setclickUserInfo] = useState(null);
   const [filteredRecipe, setfilteredRecipe] = useState([]);
-
+  const [messageVisible, setmessageVisible] = useState(false);
+  const [messageConfig, setmessageConfig] = useState({
+    header: "",
+    content: "",
+    error: false,
+    success: false,
+  });
   useEffect(() => {
     if (title === "") {
       setfilteredRecipe(recipe.slice());
@@ -36,6 +43,23 @@ const RecipeList = () => {
         );
         setclickUserInfo(response.data);
       } catch (error) {
+        setmessageVisible(true);
+      //put message here
+      setmessageConfig({
+        header: "Getting user profile failed",
+        content: error.toString(),
+        error: true,
+        success: false,
+      });
+      setTimeout(() => {
+        setmessageConfig({
+          header: "",
+          content: "",
+          error: false,
+          success: false,
+        });
+        setmessageVisible(false);
+      }, 2000);
         throw error;
       }
     }
@@ -51,6 +75,23 @@ const RecipeList = () => {
         setRecipe(response.data);
         setfilteredRecipe(response.data);
       } catch (error) {
+        setmessageVisible(true);
+      //put message here
+      setmessageConfig({
+        header: "Fetching Recipes Failed",
+        content: error.toString(),
+        error: true,
+        success: false,
+      });
+      setTimeout(() => {
+        setmessageConfig({
+          header: "",
+          content: "",
+          error: false,
+          success: false,
+        });
+        setmessageVisible(false);
+      }, 2000);
         throw error;
       }
     }
@@ -112,7 +153,35 @@ const RecipeList = () => {
   };
 
   return (
-    <Container fluid style={{ padding: "2rem" }}>
+    <Container as= "Section" fluid style={{ padding: "2rem" }}>
+     <Transition
+        duration={2000}
+        animation="scale"
+        visible={messageVisible}
+        unmountOnHide={true}
+      >
+        <Message
+          onDismiss={() => {
+            setmessageConfig({
+              header: "",
+              content: "",
+              error: false,
+              success: false,
+            });
+            setmessageVisible(false);
+          }}
+          compact
+          size="large"
+          content={messageConfig.content}
+          header={messageConfig.header}
+          error={messageConfig.error}
+          success={messageConfig.success}
+          visible={true}
+          hidden={false}
+        >
+          {/* <Icon name= "ban"></Icon> */}
+        </Message>
+      </Transition>  
       <Form style={{ padding: "20px" }} onSubmit={handleSubmit}>
         <Form.Input
           fluid
@@ -161,7 +230,7 @@ const RecipeList = () => {
           filteredRecipe.map((e) => {
             return (
               <Grid.Column key={e.id} textAlign="center">
-                <RecipeCard user={clickUserInfo} info={e}></RecipeCard>
+                <RecipeCard setmessageVisible= {setmessageVisible} setmessageConfig= {setmessageConfig} user={clickUserInfo} info={e}></RecipeCard>
               </Grid.Column>
             );
           })

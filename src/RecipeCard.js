@@ -13,9 +13,11 @@ import {
 import { Link } from "react-router-dom";
 import RecipeAdd from "./RecipeAdd";
 
-const RecipeCard = ({ info, user }) => {
+const RecipeCard = ({ info, user, setmessageConfig, setmessageVisible }) => {
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(false);
+   // const [error, setError] = useState(false)
+  
   const [favoriteClicked, setfavoriteClicked] = useState(false);
   useEffect(() => {
     setVisible(true);
@@ -51,7 +53,41 @@ const RecipeCard = ({ info, user }) => {
         }
       );
       console.log("Submitted Ratings");
+      setmessageVisible(true);
+      //put message here
+      setmessageConfig({
+        header: "Ratings successfully submitted",
+        content: "",
+        error: false,
+        success: true,
+      });
+      setTimeout(() => {
+        setmessageConfig({
+          header: "",
+          content: "",
+          error: false,
+          success: false,
+        });
+        setmessageVisible(false);
+      }, 2000);
     } catch (error) {
+      setmessageVisible(true);
+      //put message here
+      setmessageConfig({
+        header: "Rating failed",
+        content: error.toString(),
+        error: true,
+        success: false,
+      });
+      setTimeout(() => {
+        setmessageConfig({
+          header: "",
+          content: "",
+          error: false,
+          success: false,
+        });
+        setmessageVisible(false);
+      }, 2000);
       throw error;
     }
   }
@@ -68,7 +104,41 @@ const RecipeCard = ({ info, user }) => {
         }
       );
       console.log(currentFavorites);
+      setmessageVisible(true);
+      //put message here
+      setmessageConfig({
+        header: "Successfully added to Favorites",
+        content: `Added ${info.title} to favorites`,
+        error: false,
+        success: true,
+      });
+      setTimeout(() => {
+        setmessageConfig({
+          header: "",
+          content: "",
+          error: false,
+          success: false,
+        });
+        setmessageVisible(false);
+      }, 2000);
     } catch (error) {
+      setmessageVisible(true);
+      //put message here
+      setmessageConfig({
+        header: "Setting favorites failed",
+        content: error.toString(),
+        error: true,
+        success: false,
+      });
+      setTimeout(() => {
+        setmessageConfig({
+          header: "",
+          content: "",
+          error: false,
+          success: false,
+        });
+        setmessageVisible(false);
+      }, 2000);
       throw error;
     }
   }

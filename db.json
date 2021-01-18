@@ -64,7 +64,13 @@
       "name": "Kenan",
       "email": "kenan.kuzucu@example.com",
       "password": "haley",
-      "id": 11
+      "id": 11,
+      "favorites": [
+        2,
+        3,
+        1,
+        5
+      ]
     },
     {
       "name": "",
@@ -80,6 +86,20 @@
         10
       ],
       "id": 12
+    },
+    {
+      "name": "",
+      "password": "123456",
+      "email": "mmamama",
+      "favorites": [],
+      "id": 13
+    },
+    {
+      "name": "",
+      "password": "1234567",
+      "email": "oijoijoijo",
+      "favorites": [],
+      "id": 14
     }
   ],
   "recipes": [
@@ -122,7 +142,8 @@
       "area": "British",
       "rating": [
         5,
-        3
+        3,
+        5
       ],
       "id": 3
     },
