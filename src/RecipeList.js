@@ -13,27 +13,33 @@ import {
   Message,
   Transition,
 } from "semantic-ui-react";
+import { useHistory } from "react-router-dom";
+import useMessage from "./hooks/useMessage"
 
 const REJECTION_THRESHOLD = 0.3;
+
 const RecipeList = () => {
   const [recipe, setRecipe] = useState([]);
   const [title, setTitle] = useState("");
   const [chosenButton, setchosenButton] = useState("");
   const [clickUserInfo, setclickUserInfo] = useState(null);
   const [filteredRecipe, setfilteredRecipe] = useState([]);
-  const [messageVisible, setmessageVisible] = useState(false);
-  const [messageConfig, setmessageConfig] = useState({
-    header: "",
-    content: "",
-    error: false,
-    success: false,
-  });
+  const history = useHistory()
+  const [showMessage, messageVisible, hideMessage, messageConfig] = useMessage(
+    history
+  );
   useEffect(() => {
     if (title === "") {
       setfilteredRecipe(recipe.slice());
     }
     console.log(title);
   }, [title]);
+
+  useEffect(() => {
+    if (messageVisible === true) {
+      window.scrollTo(0, 0);
+    }
+  }, [messageVisible]);
 
   useEffect(() => {
     async function getLoggedInUser() {
@@ -43,29 +49,35 @@ const RecipeList = () => {
         );
         setclickUserInfo(response.data);
       } catch (error) {
-        setmessageVisible(true);
-      //put message here
-      setmessageConfig({
-        header: "Getting user profile failed",
-        content: error.toString(),
-        error: true,
-        success: false,
-      });
-      setTimeout(() => {
-        setmessageConfig({
-          header: "",
-          content: "",
-          error: false,
-          success: false,
-        });
-        setmessageVisible(false);
-      }, 2000);
+        showMessage({
+            header: "Getting user profile failed",
+            content: error.toString(),
+            error: true,
+            success: false,
+          })
+        // setmessageVisible(true);
+        // //put message here
+        // setmessageConfig({
+        //   header: "Getting user profile failed",
+        //   content: error.toString(),
+        //   error: true,
+        //   success: false,
+        // });
+        // setTimeout(() => {
+        //   setmessageConfig({
+        //     header: "",
+        //     content: "",
+        //     error: false,
+        //     success: false,
+        //   });
+        //   setmessageVisible(false);
+        // }, 2000);
         throw error;
       }
     }
     if (localStorage.getItem("userId") !== null) {
-      getLoggedInUser()
-    } 
+      getLoggedInUser();
+    }
   }, []);
 
   useEffect(() => {
@@ -75,23 +87,29 @@ const RecipeList = () => {
         setRecipe(response.data);
         setfilteredRecipe(response.data);
       } catch (error) {
-        setmessageVisible(true);
-      //put message here
-      setmessageConfig({
-        header: "Fetching Recipes Failed",
-        content: error.toString(),
-        error: true,
-        success: false,
-      });
-      setTimeout(() => {
-        setmessageConfig({
-          header: "",
-          content: "",
-          error: false,
-          success: false,
-        });
-        setmessageVisible(false);
-      }, 2000);
+        showMessage({
+            header: "Fetching Recipes Failed",
+            content: error.toString(),
+            error: true,
+            success: false,
+          })
+        // setmessageVisible(true);
+        // //put message here
+        // setmessageConfig({
+        //   header: "Fetching Recipes Failed",
+        //   content: error.toString(),
+        //   error: true,
+        //   success: false,
+        // });
+        // setTimeout(() => {
+        //   setmessageConfig({
+        //     header: "",
+        //     content: "",
+        //     error: false,
+        //     success: false,
+        //   });
+        //   setmessageVisible(false);
+        // }, 2000);
         throw error;
       }
     }
@@ -153,23 +171,15 @@ const RecipeList = () => {
   };
 
   return (
-    <Container as= "Section" fluid style={{ padding: "2rem" }}>
-     <Transition
+    <Container as="Section" fluid style={{ padding: "2rem" }}>
+      <Transition
         duration={2000}
         animation="scale"
         visible={messageVisible}
         unmountOnHide={true}
       >
         <Message
-          onDismiss={() => {
-            setmessageConfig({
-              header: "",
-              content: "",
-              error: false,
-              success: false,
-            });
-            setmessageVisible(false);
-          }}
+          onDismiss= {hideMessage}
           compact
           size="large"
           content={messageConfig.content}
@@ -181,7 +191,7 @@ const RecipeList = () => {
         >
           {/* <Icon name= "ban"></Icon> */}
         </Message>
-      </Transition>  
+      </Transition>
       <Form style={{ padding: "20px" }} onSubmit={handleSubmit}>
         <Form.Input
           fluid
@@ -223,14 +233,18 @@ const RecipeList = () => {
           Submit
         </Button>
       </Form>
-      <Grid columns="3" centered padded="horizontally">
+      <Grid relaxed columns="3" stackable centered padded="horizontally">
         {filteredRecipe.length <= 0 ? (
           <Loader active />
         ) : (
           filteredRecipe.map((e) => {
             return (
-              <Grid.Column key={e.id} textAlign="center">
-                <RecipeCard setmessageVisible= {setmessageVisible} setmessageConfig= {setmessageConfig} user={clickUserInfo} info={e}></RecipeCard>
+              <Grid.Column key={e.id} textAlign="center" stretched={true}>
+                <RecipeCard
+                  showMessage={showMessage}
+                  user={clickUserInfo}
+                  info={e}
+                ></RecipeCard>
               </Grid.Column>
             );
           })

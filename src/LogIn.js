@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import useMessage from "./hooks/useMessage";
 import {
   Button,
   Form,
@@ -13,21 +14,13 @@ import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 const LoginForm = ({ registration, setUser }) => {
   const [userName, setuserName] = useState("");
-  // const [error, setError] = useState(false)
-  const [messageVisible, setmessageVisible] = useState(false);
-  const [messageConfig, setmessageConfig] = useState({
-    header: "",
-    content: "",
-    error: false,
-    success: false,
-  });
+
   const [passWord, setpassWord] = useState("");
   let history = useHistory();
-  // useEffect(() => {
-  //   const timer = setTimeout(()=> {
-  //    setmessageVisible(false)
-  //   }, 1000)
-  // },[error])
+  const [showMessage, messageVisible, hideMessage, messageConfig] = useMessage(
+    history
+  );
+
   const onChange = (e) => {
     console.log("Hello");
     setuserName(e.target.value);
@@ -42,44 +35,24 @@ const LoginForm = ({ registration, setUser }) => {
         favorites: [],
       });
       console.log(response);
-      setmessageVisible(true);
-      //put message here
-      setmessageConfig({
-        header: "Registration Successful",
-        content: "Successfully created user " + userName,
-        error: false,
-        success: true,
-      });
-      setTimeout(() => {
-        setmessageConfig({
-          header: "",
-          content: "",
+      showMessage(
+        {
+          header: "Registration Successful",
+          content: "Successfully created user " + userName,
           error: false,
-          success: false,
-        });
-        setmessageVisible(false);
-        history.push("/");
-      }, 2000);
+          success: true,
+        },
+        "/"
+      );
     } catch (error) {
       console.log(error);
       console.log(typeof error);
-      setmessageVisible(true);
-      //put message here
-      setmessageConfig({
+      showMessage({
         header: "Registration Failed",
         content: error.toString(),
         error: true,
         success: false,
       });
-      setTimeout(() => {
-        setmessageConfig({
-          header: "",
-          content: "",
-          error: false,
-          success: false,
-        });
-        setmessageVisible(false);
-      }, 2000);
     }
   };
   const onSubmitLogin = async (e) => {
@@ -99,63 +72,31 @@ const LoginForm = ({ registration, setUser }) => {
         console.log("Successfully Logged-in");
         localStorage.setItem("userId", response.data[0].id.toString());
         setUser(response.data[0].id.toString());
-        setmessageVisible(true);
-        //put message here
-        setmessageConfig({
-          header: "Logged-in Successfully",
-          content: "", 
-          error: false,
-          success: true,
-        });
-        setTimeout(() => {
-          setmessageConfig({
-            header: "",
+        showMessage(
+          {
+            header: "Logged-in Successfully",
             content: "",
             error: false,
-            success: false,
-          });
-          setmessageVisible(false);
-          history.push("/");
-        }, 2000);
+            success: true,
+          },
+          "/"
+        );
       } else {
-        console.log("Failed Log-in");
-        setmessageVisible(true);
-        //put message here
-        setmessageConfig({
+        showMessage({
           header: "Log-in Failed",
           content: "Please try again",
           error: true,
           success: false,
         });
-        setTimeout(() => {
-          setmessageConfig({
-            header: "",
-            content: "",
-            error: false,
-            success: false,
-          });
-          setmessageVisible(false);
-        }, 2000);
       }
     } catch (error) {
       console.log(error);
-      setmessageVisible(true);
-      //put message here
-      setmessageConfig({
+      showMessage({
         header: "Log-in Failed",
         content: error.toString(),
         error: true,
         success: false,
       });
-      setTimeout(() => {
-        setmessageConfig({
-          header: "",
-          content: "",
-          error: false,
-          success: false,
-        });
-        setmessageVisible(false);
-      }, 2000);
     }
   };
   return (
@@ -167,15 +108,7 @@ const LoginForm = ({ registration, setUser }) => {
         unmountOnHide={true}
       >
         <Message
-          onDismiss={() => {
-            setmessageConfig({
-              header: "",
-              content: "",
-              error: false,
-              success: false,
-            });
-            setmessageVisible(false);
-          }}
+          onDismiss={hideMessage}
           compact
           size="large"
           content={messageConfig.content}
@@ -193,7 +126,7 @@ const LoginForm = ({ registration, setUser }) => {
         style={{ height: "100vh" }}
         verticalAlign="middle"
       >
-        <Grid.Column style={{ maxWidth: 450 }}>
+        <Grid.Column mobile="10" style={{ maxWidth: 450 }}>
           <Header as="h2" color="teal" textAlign="center">
             <Icon name="user"></Icon>
             {registration === true
@@ -207,7 +140,8 @@ const LoginForm = ({ registration, setUser }) => {
             }
           >
             <Segment stacked>
-              <Form.Input
+              <label for= "e-mail">E-mail</label>
+              <Form.Input id="e-mail"
                 fluid
                 icon="user"
                 iconPosition="left"

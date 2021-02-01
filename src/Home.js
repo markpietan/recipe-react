@@ -18,7 +18,7 @@ const Home = () => {
           <Header size="huge" className="hero-title">
             Recipe App
           </Header>
-          <Header color="white" size="large" className="hero-subtitle">
+          <Header textAlign="center" color="white" size="large" className="hero-subtitle">
             Create and Organize new and favorite recipes!
           </Header>
           <Button onClick={() => {

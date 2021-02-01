@@ -83,7 +83,8 @@
         6,
         7,
         2,
-        10
+        10,
+        1
       ],
       "id": 12
     },
@@ -100,6 +101,27 @@
       "email": "oijoijoijo",
       "favorites": [],
       "id": 14
+    },
+    {
+      "name": "",
+      "password": "5555",
+      "email": "ggggg",
+      "favorites": [],
+      "id": 15
+    },
+    {
+      "name": "",
+      "password": "12345",
+      "email": "aaaaaaa",
+      "favorites": [],
+      "id": 16
+    },
+    {
+      "name": "",
+      "password": "12345",
+      "email": "aaaaaaa",
+      "favorites": [],
+      "id": 17
     }
   ],
   "recipes": [
@@ -115,7 +137,8 @@
         5,
         5,
         5,
-        5
+        5,
+        3
       ],
       "id": 1
     },
@@ -143,6 +166,7 @@
       "rating": [
         5,
         3,
+        5,
         5
       ],
       "id": 3
@@ -207,7 +231,10 @@
       "userId": 9,
       "videoUrl": "https://www.youtube.com/watch?v=fDpoT0jvg4Y",
       "area": "American",
-      "rating": [],
+      "rating": [
+        3,
+        5
+      ],
       "id": 8
     },
     {

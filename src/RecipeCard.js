@@ -13,11 +13,11 @@ import {
 import { Link } from "react-router-dom";
 import RecipeAdd from "./RecipeAdd";
 
-const RecipeCard = ({ info, user, setmessageConfig, setmessageVisible }) => {
+const RecipeCard = ({ info, user, showMessage }) => {
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(false);
-   // const [error, setError] = useState(false)
-  
+ 
+
   const [favoriteClicked, setfavoriteClicked] = useState(false);
   useEffect(() => {
     setVisible(true);
@@ -33,9 +33,8 @@ const RecipeCard = ({ info, user, setmessageConfig, setmessageVisible }) => {
         setfavoriteClicked(true);
       }
     }
-   
   }, []);
-  // const ratings = info.rating
+
 
   let some = 0;
   for (let index = 0; index < info.rating.length; index++) {
@@ -53,41 +52,21 @@ const RecipeCard = ({ info, user, setmessageConfig, setmessageVisible }) => {
         }
       );
       console.log("Submitted Ratings");
-      setmessageVisible(true);
-      //put message here
-      setmessageConfig({
+      showMessage({
         header: "Ratings successfully submitted",
         content: "",
         error: false,
         success: true,
       });
-      setTimeout(() => {
-        setmessageConfig({
-          header: "",
-          content: "",
-          error: false,
-          success: false,
-        });
-        setmessageVisible(false);
-      }, 2000);
     } catch (error) {
-      setmessageVisible(true);
-      //put message here
-      setmessageConfig({
+      showMessage({
         header: "Rating failed",
         content: error.toString(),
         error: true,
         success: false,
       });
-      setTimeout(() => {
-        setmessageConfig({
-          header: "",
-          content: "",
-          error: false,
-          success: false,
-        });
-        setmessageVisible(false);
-      }, 2000);
+     
+
       throw error;
     }
   }
@@ -104,41 +83,20 @@ const RecipeCard = ({ info, user, setmessageConfig, setmessageVisible }) => {
         }
       );
       console.log(currentFavorites);
-      setmessageVisible(true);
-      //put message here
-      setmessageConfig({
+      showMessage({
         header: "Successfully added to Favorites",
         content: `Added ${info.title} to favorites`,
         error: false,
         success: true,
       });
-      setTimeout(() => {
-        setmessageConfig({
-          header: "",
-          content: "",
-          error: false,
-          success: false,
-        });
-        setmessageVisible(false);
-      }, 2000);
     } catch (error) {
-      setmessageVisible(true);
-      //put message here
-      setmessageConfig({
+      showMessage({
         header: "Setting favorites failed",
         content: error.toString(),
         error: true,
         success: false,
       });
-      setTimeout(() => {
-        setmessageConfig({
-          header: "",
-          content: "",
-          error: false,
-          success: false,
-        });
-        setmessageVisible(false);
-      }, 2000);
+
       throw error;
     }
   }
@@ -185,10 +143,13 @@ const RecipeCard = ({ info, user, setmessageConfig, setmessageVisible }) => {
             open={open}
             trigger={<Button color="black">Click Here</Button>}
           >
-            {" "}
+            <Icon name= "times" onClick= {() => {
+              setOpen(false)
+            }}></Icon>
             <Modal.Header>{info.title}</Modal.Header>
             <Modal.Content image>
-              <Image size="large" src={info.imageUrl} wrapped />
+             
+              <Image alt= {info.title} size="large" src={info.imageUrl} wrapped />
               <Modal.Description>
                 <Header>{info.calories} calories</Header>
                 <p>{info.instructions}</p>
@@ -201,21 +162,17 @@ const RecipeCard = ({ info, user, setmessageConfig, setmessageVisible }) => {
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 ></iframe>
-
-                {/* <image>{info.}</image> */}
               </Modal.Description>
-              <div></div>
             </Modal.Content>
           </Modal>
-        
-          {user === null ? 
-             null : 
-             <Link to={"/recipes/" + info.id}>
-             <Button color="black" style={{ padding: "10px" }}>
-               Details Page
-             </Button>
-             </Link>}
-      
+
+          {user === null ? null : (
+            <Link to={"/recipes/" + info.id}>
+              <Button color="black" style={{ padding: "10px" }}>
+                Details Page
+              </Button>
+            </Link>
+          )}
         </Card.Content>
         <Card.Content extra>
           <div>
@@ -265,7 +222,6 @@ const RecipeCard = ({ info, user, setmessageConfig, setmessageVisible }) => {
               </>
             )}
           </div>
-
         </Card.Content>
       </Card>
     </Transition>
