@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Menu, Icon } from "semantic-ui-react";
+import { Menu, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 

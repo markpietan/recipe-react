@@ -1,4 +1,4 @@
-import { useEffect, useHistory, useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -12,7 +12,7 @@ const Favorites = () => {
     async function getLoggedInUser() {
       try {
         const response = await axios.get(
-          "http://localhost:3001/users/" + localStorage.getItem("userId")
+          "https://recipe-app-json-server-backend.herokuapp.com/users/" + localStorage.getItem("userId")
         );
         setfavoritesList(response.data.favorites);
       } catch (error) {
@@ -26,7 +26,7 @@ const Favorites = () => {
   useEffect(() => {
     async function getUserFavorites() {
       try {
-        const response = await axios.get("http://localhost:3001/recipes", {
+        const response = await axios.get("https://recipe-app-json-server-backend.herokuapp.com/recipes", {
           params: {
             id: favoritesList,
           },
@@ -45,18 +45,18 @@ const Favorites = () => {
   }, [favoritesList]);
 
   return (
-    <Item.Group divided relaxed= "very" id="favorites">
+    <Item.Group divided relaxed="very" id="favorites">
       {favoriteData.map((e) => {
         return (
-          <Item>
+          <Item style={{textAlign: "center"}} >
             <Item.Image size="tiny" src={e.imageUrl} />
             <Item.Content verticalAlign="middle">
               <Item.Header as="a">{e.title}</Item.Header>
+              <p>{e.area}</p>
               <Item.Meta>
                 <Button>
                   <Link to={`/recipes/${e.id}`}> Details Page</Link>
                 </Button>
-                <span>{e.area}</span>
               </Item.Meta>
             </Item.Content>
           </Item>

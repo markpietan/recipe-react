@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useMessage from "./hooks/useMessage";
 import {
   Button,
@@ -22,19 +22,21 @@ const LoginForm = ({ registration, setUser }) => {
   );
 
   const onChange = (e) => {
-    console.log("Hello");
     setuserName(e.target.value);
   };
   const onSubmitRegistration = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3001/users", {
-        name: "",
-        password: passWord,
-        email: userName,
-        favorites: [],
-      });
-      console.log(response);
+     await axios.post(
+        "https://recipe-app-json-server-backend.herokuapp.com/users",
+        {
+          name: "",
+          password: passWord,
+          email: userName,
+          favorites: [],
+        }
+      );
+
       showMessage(
         {
           header: "Registration Successful",
@@ -45,8 +47,6 @@ const LoginForm = ({ registration, setUser }) => {
         "/"
       );
     } catch (error) {
-      console.log(error);
-      console.log(typeof error);
       showMessage({
         header: "Registration Failed",
         content: error.toString(),
@@ -59,7 +59,7 @@ const LoginForm = ({ registration, setUser }) => {
     e.preventDefault();
     try {
       const response = await axios.get(
-        "http://localhost:3001/users?email=userName&password=passWord",
+        "https://recipe-app-json-server-backend.herokuapp.com/users?email=userName&password=passWord",
         {
           params: {
             email: userName,
@@ -67,9 +67,8 @@ const LoginForm = ({ registration, setUser }) => {
           },
         }
       );
-      console.log(response);
+
       if (response.data.length > 0) {
-        console.log("Successfully Logged-in");
         localStorage.setItem("userId", response.data[0].id.toString());
         setUser(response.data[0].id.toString());
         showMessage(
@@ -90,7 +89,6 @@ const LoginForm = ({ registration, setUser }) => {
         });
       }
     } catch (error) {
-      console.log(error);
       showMessage({
         header: "Log-in Failed",
         content: error.toString(),
@@ -140,8 +138,9 @@ const LoginForm = ({ registration, setUser }) => {
             }
           >
             <Segment stacked>
-              <label for= "e-mail">E-mail</label>
-              <Form.Input id="e-mail"
+              <label for="e-mail">E-mail</label>
+              <Form.Input
+                id="e-mail"
                 fluid
                 icon="user"
                 iconPosition="left"

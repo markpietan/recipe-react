@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   Form,
   Segment,
-  Grid,
-  Image,
   Header,
   Icon,
   TextArea,
@@ -26,25 +24,26 @@ const RecipeAdd = () => {
     if (user === null) {
       history.push("/404");
     }
-  }, []);
+  }, [history]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3001/recipes", {
-        userId: Number(localStorage.getItem("userId")),
-        title: title,
-        imageUrl: imageUrl,
-        calories: calories,
-        instructions: instructions,
-        rating: [],
-        area: area,
-      });
-      console.log(response);
+      await axios.post(
+        "https://recipe-app-json-server-backend.herokuapp.com/recipes",
+        {
+          userId: Number(localStorage.getItem("userId")),
+          title: title,
+          imageUrl: imageUrl,
+          calories: calories,
+          instructions: instructions,
+          rating: [],
+          area: area,
+        }
+      );
+
       history.push("/");
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
   return (
     <>
@@ -52,7 +51,7 @@ const RecipeAdd = () => {
         <Icon name="food"></Icon>
         Enter a new recipe
       </Header>
-      <Form size="large" onSubmit={onSubmit}>
+      <Form style={{ padding: "15px" }} onSubmit={onSubmit}>
         <Segment stacked>
           <Form.Input
             fluid

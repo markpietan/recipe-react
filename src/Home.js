@@ -1,29 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { Button, Header, Grid, Image, Transition } from "semantic-ui-react";
+
+import { Button, Header, Grid, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import "./Home.css";
 
 const Home = () => {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    setVisible(true);
-  }, []);
-
   return (
     <section>
       <div className="hero">
-        {/* <Transition duration={500} animation="zoom" visible={visible}> */}
         <div className="hero-content">
           <Header size="huge" className="hero-title">
             Recipe App
           </Header>
-          <Header textAlign="center" color="white" size="large" className="hero-subtitle">
+          <Header
+            textAlign="center"
+            color="white"
+            size="large"
+            className="hero-subtitle"
+          >
             Create and Organize new and favorite recipes!
           </Header>
-          <Button onClick={() => {
-            console.log("clicked")
-          }}className="call">
+          <Button onClick={() => {}} className="call">
             <Link to="/registration">Sign Up Today</Link>
           </Button>
         </div>
@@ -70,13 +66,3 @@ const Home = () => {
   );
 };
 export default Home;
-
-// import React from 'react'
-// import { Image } from 'semantic-ui-react'
-
-// const ImageExampleFluid = () => (
-//   <Image src='/images/wireframe/image.png' fluid />
-// )
-
-// export default ImageExampleFluid
-// src={src} size='massive'

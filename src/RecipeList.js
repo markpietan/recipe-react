@@ -14,7 +14,7 @@ import {
   Transition,
 } from "semantic-ui-react";
 import { useHistory } from "react-router-dom";
-import useMessage from "./hooks/useMessage"
+import useMessage from "./hooks/useMessage";
 
 const REJECTION_THRESHOLD = 0.3;
 
@@ -24,7 +24,7 @@ const RecipeList = () => {
   const [chosenButton, setchosenButton] = useState("");
   const [clickUserInfo, setclickUserInfo] = useState(null);
   const [filteredRecipe, setfilteredRecipe] = useState([]);
-  const history = useHistory()
+  const history = useHistory();
   const [showMessage, messageVisible, hideMessage, messageConfig] = useMessage(
     history
   );
@@ -32,8 +32,7 @@ const RecipeList = () => {
     if (title === "") {
       setfilteredRecipe(recipe.slice());
     }
-    console.log(title);
-  }, [title]);
+  }, [title, recipe]);
 
   useEffect(() => {
     if (messageVisible === true) {
@@ -45,76 +44,47 @@ const RecipeList = () => {
     async function getLoggedInUser() {
       try {
         const response = await axios.get(
-          "http://localhost:3001/users/" + localStorage.getItem("userId")
+          "https://recipe-app-json-server-backend.herokuapp.com/users/" +
+            localStorage.getItem("userId")
         );
         setclickUserInfo(response.data);
       } catch (error) {
         showMessage({
-            header: "Getting user profile failed",
-            content: error.toString(),
-            error: true,
-            success: false,
-          })
-        // setmessageVisible(true);
-        // //put message here
-        // setmessageConfig({
-        //   header: "Getting user profile failed",
-        //   content: error.toString(),
-        //   error: true,
-        //   success: false,
-        // });
-        // setTimeout(() => {
-        //   setmessageConfig({
-        //     header: "",
-        //     content: "",
-        //     error: false,
-        //     success: false,
-        //   });
-        //   setmessageVisible(false);
-        // }, 2000);
+          header: "Getting user profile failed",
+          content: error.toString(),
+          error: true,
+          success: false,
+        });
+       
         throw error;
       }
     }
     if (localStorage.getItem("userId") !== null) {
       getLoggedInUser();
     }
-  }, []);
+  }, [showMessage]);
 
   useEffect(() => {
     async function getAllRecipes() {
       try {
-        const response = await axios.get("http://localhost:3001/recipes");
+        const response = await axios.get(
+          "https://recipe-app-json-server-backend.herokuapp.com/recipes"
+        );
         setRecipe(response.data);
         setfilteredRecipe(response.data);
       } catch (error) {
         showMessage({
-            header: "Fetching Recipes Failed",
-            content: error.toString(),
-            error: true,
-            success: false,
-          })
-        // setmessageVisible(true);
-        // //put message here
-        // setmessageConfig({
-        //   header: "Fetching Recipes Failed",
-        //   content: error.toString(),
-        //   error: true,
-        //   success: false,
-        // });
-        // setTimeout(() => {
-        //   setmessageConfig({
-        //     header: "",
-        //     content: "",
-        //     error: false,
-        //     success: false,
-        //   });
-        //   setmessageVisible(false);
-        // }, 2000);
+          header: "Fetching Recipes Failed",
+          content: error.toString(),
+          error: true,
+          success: false,
+        });
+   
         throw error;
       }
     }
     getAllRecipes();
-  }, []);
+  }, [showMessage]);
   const handleChange = (e, { value }) => {
     setchosenButton(value);
   };
@@ -126,19 +96,18 @@ const RecipeList = () => {
       };
 
       let newArray = copy.filter((recipe) => {
-        console.log(recipe);
         let areaArray = recipe.area.split(" ");
         const fuse = new Fuse(areaArray, options);
 
         const result = fuse.search(title);
-        console.log(result);
+
         if (result.length > 0 && result[0].score <= REJECTION_THRESHOLD) {
           return true;
         } else {
           return false;
         }
       });
-      console.log(newArray);
+
       setfilteredRecipe(newArray);
     } else if (chosenButton === "Calories") {
       let copy = recipe.slice();
@@ -154,13 +123,12 @@ const RecipeList = () => {
       let copy = recipe.slice();
 
       let newArray = copy.filter((recipe) => {
-        console.log(recipe);
         let average = 0;
         recipe.rating.forEach((oneRating) => {
           average += oneRating;
         });
         average = Math.round(average / recipe.rating.length);
-        console.log(average);
+
         if (!isNaN(average) && average <= Number(title)) {
           return true;
         }
@@ -179,7 +147,7 @@ const RecipeList = () => {
         unmountOnHide={true}
       >
         <Message
-          onDismiss= {hideMessage}
+          onDismiss={hideMessage}
           compact
           size="large"
           content={messageConfig.content}
@@ -193,42 +161,46 @@ const RecipeList = () => {
         </Message>
       </Transition>
       <Form style={{ padding: "20px" }} onSubmit={handleSubmit}>
+        <label htmlFor="search">Search</label>
         <Form.Input
           fluid
           type=""
+          id="search"
           placeholder="Search"
           value={title}
           onChange={(e) => {
             setTitle(e.target.value);
           }}
         />
-        <Form.Field>
-          <Radio
-            label="Area"
-            name="filter"
-            value="Area"
-            checked={chosenButton === "Area"}
-            onChange={handleChange}
-          />
-        </Form.Field>
-        <Form.Field>
-          <Radio
-            label="Calories"
-            name="filter"
-            value="Calories"
-            checked={chosenButton === "Calories"}
-            onChange={handleChange}
-          />
-        </Form.Field>
-        <Form.Field>
-          <Radio
-            label="Rating"
-            name="filter"
-            value="Rating"
-            checked={chosenButton === "Rating"}
-            onChange={handleChange}
-          />
-        </Form.Field>
+        <Form.Group grouped>
+          <Form.Field>
+            <Radio
+              label="Area"
+              name="filter"
+              value="Area"
+              checked={chosenButton === "Area"}
+              onChange={handleChange}
+            />
+          </Form.Field>
+          <Form.Field>
+            <Radio
+              label="Calories"
+              name="filter"
+              value="Calories"
+              checked={chosenButton === "Calories"}
+              onChange={handleChange}
+            />
+          </Form.Field>
+          <Form.Field>
+            <Radio
+              label="Rating"
+              name="filter"
+              value="Rating"
+              checked={chosenButton === "Rating"}
+              onChange={handleChange}
+            />
+          </Form.Field>
+        </Form.Group>
         <Button color="black" type="submit">
           Submit
         </Button>

@@ -1,7 +1,7 @@
 import "./App.css";
 import NavBar from "./NavBar";
 import "semantic-ui-css/semantic.min.css";
-import { Route, useParams, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import LogIn from "./LogIn";
 import Home from "./Home";
 import RecipeList from "./RecipeList";

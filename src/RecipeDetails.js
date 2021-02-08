@@ -1,8 +1,8 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./RecipeDetails.css" 
+import "./RecipeDetails.css";
 import {
-  Grid,
+  
   Container,
   Header,
   Loader,
@@ -16,20 +16,21 @@ import { useParams, Link, useHistory } from "react-router-dom";
 
 const RecipeDetails = () => {
   const [recipeDetails, setrecipeDetails] = useState(null);
-  let history = useHistory()
+  let history = useHistory();
   let { id } = useParams();
   useEffect(() => {
     async function getRecipeDetails() {
       try {
-        const response = await axios.get("http://localhost:3001/recipes/" + id);
+        const response = await axios.get(
+          "https://recipe-app-json-server-backend.herokuapp.com/recipes" + id
+        );
         setrecipeDetails(response.data);
-        console.log(response.data);
       } catch (error) {
         throw error;
       }
     }
     getRecipeDetails();
-  }, []);
+  }, [id]);
   let averageRating;
   if (recipeDetails) {
     let some = 0;
@@ -44,10 +45,10 @@ const RecipeDetails = () => {
     async function getUserDetails() {
       try {
         const response = await axios.get(
-          "http://localhost:3001/users/" + recipeDetails.userId
+          "https://recipe-app-json-server-backend.herokuapp.com/users/" +
+            recipeDetails.userId
         );
         setuserDetails(response.data);
-        console.log(response.data);
       } catch (error) {
         throw error;
       }
@@ -56,26 +57,31 @@ const RecipeDetails = () => {
       getUserDetails();
     }
   }, [recipeDetails]);
-  console.log(id);
-  useEffect(() => {
-    let user = localStorage.getItem("userId")
-    if (user === null) {
-      history.push("/404")
-    }
 
-  }, [])
+  useEffect(() => {
+    let user = localStorage.getItem("userId");
+    if (user === null) {
+      history.push("/404");
+    }
+  }, [history]);
   return (
     <Container textAlign="center" text fluid style={{ padding: "0rem" }}>
       {recipeDetails && userDetails ? (
         <div>
-          <Header as= 'h1' size= 'huge'>{recipeDetails.title}</Header>
-          <Header as= 'h1' size= 'huge'>
+          <Header as="h1" size="huge">
+            {recipeDetails.title}
+          </Header>
+          <Header as="h1" size="huge">
             {recipeDetails.area}
             <Flag name="morocco"></Flag>
           </Header>
           <Header as="h3">{recipeDetails.calories} calories</Header>
           <Rating maxRating={5} rating={averageRating} />
-          <Image style={{ padding: "10px" }} src={recipeDetails.imageUrl} size="medium"></Image>
+          <Image
+            style={{ padding: "10px" }}
+            src={recipeDetails.imageUrl}
+            size="medium"
+          ></Image>
           <p style={{ padding: "10px" }}>{recipeDetails.instructions}</p>
           <Embed
             id={recipeDetails.videoUrl.slice(
@@ -84,24 +90,20 @@ const RecipeDetails = () => {
             source="youtube"
           />
           <Link to={"/users/" + userDetails.id}>
-          <Segment
-            className= "recipeDetailSegment"
-           
-            padded
-          >
-            <Image
-              src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
-              alt="User Icon Image" 
-              circular
-              size="small"
-              style={{ padding: "10px" }}
-             />
-             <h2>Click to Edit or Delete Recipes</h2>
-            <div>
-              <p>{userDetails.name}</p>
-              <Header>{userDetails.email}</Header>
-            </div>
-          </Segment>
+            <Segment className="recipeDetailSegment" padded>
+              <Image
+                src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
+                alt="User Icon Image"
+                circular
+                size="small"
+                style={{ padding: "10px" }}
+              />
+              <h2>Click to Edit or Delete Recipes</h2>
+              <div>
+                <p>{userDetails.name}</p>
+                <Header>{userDetails.email}</Header>
+              </div>
+            </Segment>
           </Link>
         </div>
       ) : (

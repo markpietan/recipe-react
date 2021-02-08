@@ -11,12 +11,10 @@ import {
   Transition,
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import RecipeAdd from "./RecipeAdd";
 
 const RecipeCard = ({ info, user, showMessage }) => {
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(false);
- 
 
   const [favoriteClicked, setfavoriteClicked] = useState(false);
   useEffect(() => {
@@ -33,8 +31,7 @@ const RecipeCard = ({ info, user, showMessage }) => {
         setfavoriteClicked(true);
       }
     }
-  }, []);
-
+  }, [info.id, user]);
 
   let some = 0;
   for (let index = 0; index < info.rating.length; index++) {
@@ -45,13 +42,14 @@ const RecipeCard = ({ info, user, showMessage }) => {
     try {
       const ratingArray = [...info.rating];
       ratingArray.push(rating);
-      const response = await axios.patch(
-        "http://localhost:3001/recipes/" + info.id,
+      await axios.patch(
+        "https://recipe-app-json-server-backend.herokuapp.com/recipes/" +
+          info.id,
         {
           rating: ratingArray,
         }
       );
-      console.log("Submitted Ratings");
+
       showMessage({
         header: "Ratings successfully submitted",
         content: "",
@@ -65,7 +63,6 @@ const RecipeCard = ({ info, user, showMessage }) => {
         error: true,
         success: false,
       });
-     
 
       throw error;
     }
@@ -76,13 +73,13 @@ const RecipeCard = ({ info, user, showMessage }) => {
       currentFavorites.push(info.id);
       const mySet = new Set(currentFavorites);
       const finalArray = Array.from(mySet);
-      const response = await axios.patch(
-        "http://localhost:3001/users/" + user.id,
+      await axios.patch(
+        "https://recipe-app-json-server-backend.herokuapp.com/users/" + user.id,
         {
           favorites: finalArray,
         }
       );
-      console.log(currentFavorites);
+
       showMessage({
         header: "Successfully added to Favorites",
         content: `Added ${info.title} to favorites`,
@@ -112,13 +109,12 @@ const RecipeCard = ({ info, user, showMessage }) => {
       });
       const mySet = new Set(currentFavorites);
       const finalArray = Array.from(mySet);
-      const response = await axios.patch(
-        "http://localhost:3001/users/" + user.id,
+      await axios.patch(
+        "https://recipe-app-json-server-backend.herokuapp.com/users/" + user.id,
         {
           favorites: finalArray,
         }
       );
-      console.log(currentFavorites);
     } catch (error) {
       throw error;
     }
@@ -127,10 +123,10 @@ const RecipeCard = ({ info, user, showMessage }) => {
   return (
     <Transition animation="swing down" visible={visible} duration={500}>
       <Card>
-        <Image src={info.imageUrl} wrapped ui={false} />
+        <Image alt={info.title} src={info.imageUrl} wrapped ui={false} />
         <Card.Content>
           <Card.Header>{info.title}</Card.Header>
-          <Card.Meta style={{}}>{info.calories}</Card.Meta>
+          <p>{info.calories}</p>
 
           <Card.Description className="description">
             {" "}
@@ -143,13 +139,21 @@ const RecipeCard = ({ info, user, showMessage }) => {
             open={open}
             trigger={<Button color="black">Click Here</Button>}
           >
-            <Icon name= "times" onClick= {() => {
-              setOpen(false)
-            }}></Icon>
+            <Icon
+              aria-label="Close Button"
+              name="times"
+              onClick={() => {
+                setOpen(false);
+              }}
+            ></Icon>
             <Modal.Header>{info.title}</Modal.Header>
             <Modal.Content image>
-             
-              <Image alt= {info.title} size="large" src={info.imageUrl} wrapped />
+              <Image
+                alt={info.title}
+                size="large"
+                src={info.imageUrl}
+                wrapped
+              />
               <Modal.Description>
                 <Header>{info.calories} calories</Header>
                 <p>{info.instructions}</p>
@@ -187,6 +191,8 @@ const RecipeCard = ({ info, user, showMessage }) => {
                 />
                 <Icon
                   disabled
+                  aria-label="Favorite Button"
+                  aria-hidden="true"
                   color={favoriteClicked ? "red" : "grey"}
                   onClick={(e) => {
                     setfavoriteClicked(!favoriteClicked);
@@ -208,6 +214,8 @@ const RecipeCard = ({ info, user, showMessage }) => {
                   onRate={handleRate}
                 />
                 <Icon
+                  aria-label="Favorite Button"
+                  aria-hidden="false"
                   color={favoriteClicked ? "red" : "grey"}
                   onClick={(e) => {
                     setfavoriteClicked(!favoriteClicked);
