@@ -8,14 +8,13 @@ const Home = () => {
     <section>
       <div className="hero">
         <div className="hero-content">
-          <Header size="huge" className="hero-title">
+          <Header size="huge" id="hero-title">
             Recipe App
           </Header>
           <Header
             textAlign="center"
-            color="white"
             size="large"
-            className="hero-subtitle"
+            id="hero-subtitle"
           >
             Create and Organize new and favorite recipes!
           </Header>

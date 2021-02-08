@@ -12,13 +12,19 @@ function NavBar({ user, setUser }) {
   return (
     <nav>
       <Menu inverted color="black" id="myMenu">
-        <Menu.Item name="" active={activeItem === ""} onClick={handleItemClick}>
+        <Menu.Item
+          as="div"
+          name=""
+          active={activeItem === ""}
+          onClick={handleItemClick}
+        >
           <Link to="/">
             <Icon name="food"></Icon>
           </Link>
         </Menu.Item>
         {user === "" ? (
           <Menu.Item
+            as="div"
             name="Home"
             active={activeItem === "Home"}
             onClick={handleItemClick}
@@ -28,6 +34,7 @@ function NavBar({ user, setUser }) {
         ) : null}
 
         <Menu.Item
+          as="div"
           name="Recipe List"
           active={activeItem === "Recipe List"}
           onClick={handleItemClick}
@@ -36,6 +43,7 @@ function NavBar({ user, setUser }) {
         </Menu.Item>
         {user !== "" ? (
           <Menu.Item
+            as="div"
             name="Recipe Add"
             active={activeItem === "Recipe Add"}
             onClick={handleItemClick}
@@ -46,6 +54,7 @@ function NavBar({ user, setUser }) {
 
         {user !== "" ? (
           <Menu.Item
+            as="div"
             name="Favorites"
             active={activeItem === "Favorites"}
             onClick={handleItemClick}
@@ -55,6 +64,7 @@ function NavBar({ user, setUser }) {
         ) : null}
 
         <Menu.Item
+          as="div"
           name="Log In"
           active={activeItem === "Log In"}
           onClick={handleItemClick}

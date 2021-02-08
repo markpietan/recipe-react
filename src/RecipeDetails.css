@@ -5,6 +5,6 @@
     color: var(--gainsboro)
 }
 
-.flag {
-    background-size: 100px;
+#detailRating{
+    display: block;
 }

@@ -138,7 +138,7 @@ const LoginForm = ({ registration, setUser }) => {
             }
           >
             <Segment stacked>
-              <label for="e-mail">E-mail</label>
+              <label htmlFor="e-mail">E-mail</label>
               <Form.Input
                 id="e-mail"
                 fluid

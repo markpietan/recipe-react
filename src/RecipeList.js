@@ -62,7 +62,7 @@ const RecipeList = () => {
     if (localStorage.getItem("userId") !== null) {
       getLoggedInUser();
     }
-  }, [showMessage]);
+  }, []);
 
   useEffect(() => {
     async function getAllRecipes() {
@@ -84,7 +84,7 @@ const RecipeList = () => {
       }
     }
     getAllRecipes();
-  }, [showMessage]);
+  }, []);
   const handleChange = (e, { value }) => {
     setchosenButton(value);
   };
@@ -139,7 +139,7 @@ const RecipeList = () => {
   };
 
   return (
-    <Container as="Section" fluid style={{ padding: "2rem" }}>
+    <Container as="section" fluid style={{ padding: "2rem" }}>
       <Transition
         duration={2000}
         animation="scale"

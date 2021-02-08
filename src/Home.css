@@ -30,6 +30,11 @@
     justify-content: center;
     align-items: center;
 }
+
+#hero-subtitle, #hero-title {
+    color: white;
+}
+
     
 .call {
     background-color: var(--steelTeal);
@@ -39,9 +44,7 @@
     z-index: 100;
 }
 
-.ui.header {
-    color: white;
-}
+
 
 .article {
     background-color : var(--xanadu);

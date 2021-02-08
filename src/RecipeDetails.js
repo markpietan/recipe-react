@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./RecipeDetails.css";
 import {
-  
   Container,
   Header,
   Loader,
@@ -22,7 +21,7 @@ const RecipeDetails = () => {
     async function getRecipeDetails() {
       try {
         const response = await axios.get(
-          "https://recipe-app-json-server-backend.herokuapp.com/recipes" + id
+          "https://recipe-app-json-server-backend.herokuapp.com/recipes/" + id
         );
         setrecipeDetails(response.data);
       } catch (error) {
@@ -68,16 +67,16 @@ const RecipeDetails = () => {
     <Container textAlign="center" text fluid style={{ padding: "0rem" }}>
       {recipeDetails && userDetails ? (
         <div>
-          <Header as="h1" size="huge">
+          <Header color="black" as="h1" size="huge">
             {recipeDetails.title}
           </Header>
           <Header as="h1" size="huge">
             {recipeDetails.area}
-            <Flag name="morocco"></Flag>
           </Header>
           <Header as="h3">{recipeDetails.calories} calories</Header>
-          <Rating maxRating={5} rating={averageRating} />
+          <Rating id= "detailRating" maxRating={5} rating={averageRating} />
           <Image
+            wrapped
             style={{ padding: "10px" }}
             src={recipeDetails.imageUrl}
             size="medium"
@@ -85,7 +84,7 @@ const RecipeDetails = () => {
           <p style={{ padding: "10px" }}>{recipeDetails.instructions}</p>
           <Embed
             id={recipeDetails.videoUrl.slice(
-              recipeDetails.videoUrl.indexOf("d/") + 2
+              recipeDetails.videoUrl.indexOf("=") + 1
             )}
             source="youtube"
           />
