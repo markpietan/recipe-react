@@ -6,7 +6,6 @@ import {
   Header,
   Loader,
   Image,
-  Flag,
   Embed,
   Rating,
   Segment,
@@ -74,7 +73,7 @@ const RecipeDetails = () => {
             {recipeDetails.area}
           </Header>
           <Header as="h3">{recipeDetails.calories} calories</Header>
-          <Rating id= "detailRating" maxRating={5} rating={averageRating} />
+          <Rating id="detailRating" maxRating={5} rating={averageRating} />
           <Image
             wrapped
             style={{ padding: "10px" }}
@@ -82,14 +81,22 @@ const RecipeDetails = () => {
             size="medium"
           ></Image>
           <p style={{ padding: "10px" }}>{recipeDetails.instructions}</p>
-          <Embed
-            id={recipeDetails.videoUrl.slice(
-              recipeDetails.videoUrl.indexOf("=") + 1
-            )}
-            source="youtube"
-          />
+          {recipeDetails.videoUrl ? (
+            <Embed
+              source="youtube"
+              id={recipeDetails.videoUrl.slice(
+                recipeDetails.videoUrl.indexOf("=") + 1
+              )}
+            ></Embed>
+          ) : (
+            <p>No Video Found</p>
+          )}
           <Link to={"/users/" + userDetails.id}>
-            <Segment className="recipeDetailSegment" padded>
+            <Segment
+              style={{ display: "flex", alignItems: "center", justifyContent: "space-around" }}
+              className="recipeDetailSegment"
+              padded
+            >
               <Image
                 src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
                 alt="User Icon Image"
@@ -97,11 +104,9 @@ const RecipeDetails = () => {
                 size="small"
                 style={{ padding: "10px" }}
               />
-              <h2>Click to Edit or Delete Recipes</h2>
-              <div>
-                <p>{userDetails.name}</p>
-                <Header>{userDetails.email}</Header>
-              </div>
+              <h2 style={{margin: "0"}}>Click to Edit or Delete Recipes</h2>
+
+              <Header style={{margin: "0"}}>{userDetails.email}</Header>
             </Segment>
           </Link>
         </div>

@@ -16,10 +16,6 @@ import { Link } from "react-router-dom";
 const RecipeCard = ({ info, user, showMessage }) => {
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(false);
-  console.log(info.videoUrl.slice(
-    info.videoUrl.indexOf("=") + 1
-  ))
-  console.log(info.videoUrl)
   const [favoriteClicked, setfavoriteClicked] = useState(false);
   useEffect(() => {
     setVisible(true);
@@ -161,10 +157,24 @@ const RecipeCard = ({ info, user, showMessage }) => {
               <Modal.Description>
                 <Header>{info.calories} calories</Header>
                 <p>{info.instructions}</p>
-                <Embed source= "youtube" id={info.videoUrl.slice(
-              info.videoUrl.indexOf("=") + 1
-            )}></Embed>
-        
+                {info.videoUrl ? (
+                  <Embed
+                    source="youtube"
+                    id={info.videoUrl.slice(info.videoUrl.indexOf("=") + 1)}
+                  ></Embed>
+                ) : (
+                  <p>No Video Found</p>
+                )}
+
+                {/* <iframe
+                  title="video"
+                  width="560"
+                  height="315"
+                  src={info.videoUrl}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe> */}
               </Modal.Description>
             </Modal.Content>
           </Modal>

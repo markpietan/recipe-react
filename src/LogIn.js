@@ -140,6 +140,7 @@ const LoginForm = ({ registration, setUser }) => {
             <Segment stacked>
               <label htmlFor="e-mail">E-mail</label>
               <Form.Input
+                required
                 id="e-mail"
                 fluid
                 icon="user"
@@ -149,6 +150,7 @@ const LoginForm = ({ registration, setUser }) => {
                 onChange={onChange}
               />
               <Form.Input
+                required
                 fluid
                 icon="lock"
                 iconPosition="left"

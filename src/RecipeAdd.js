@@ -54,6 +54,7 @@ const RecipeAdd = () => {
       <Form style={{ padding: "15px" }} onSubmit={onSubmit}>
         <Segment stacked>
           <Form.Input
+            required
             fluid
             type=""
             placeholder="Title"
@@ -63,6 +64,7 @@ const RecipeAdd = () => {
             }}
           />
           <TextArea
+            required
             style={{ padding: "14px" }}
             placeholder="Recipe Instructions"
             value={instructions}
@@ -71,6 +73,7 @@ const RecipeAdd = () => {
             }}
           />
           <Form.Input
+            required
             fluid
             style={{ padding: "4px" }}
             placeholder="Calories"
@@ -81,6 +84,7 @@ const RecipeAdd = () => {
             }}
           />
           <Form.Input
+            required
             fluid
             placeholder="Image Url"
             type=""
@@ -90,6 +94,7 @@ const RecipeAdd = () => {
             }}
           />
           <Form.Input
+            required
             fluid
             placeholder="Area"
             type=""
